@@ -317,3 +317,23 @@ footer a:hover{color:#fff}
 }
 .pall .proj:first-child{grid-row:auto}
 @media (max-width:700px){.tform input{flex:none;width:100%}.tform .btn{justify-content:center}}
+/* systems */
+.syscards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.syscard{border:1px solid var(--line);border-radius:18px;padding:24px;background:var(--ink2);transition:border-color .2s,transform .2s}
+.syscard:hover{border-color:var(--blue);transform:translateY(-4px)}
+.syscard b{display:block;font-size:30px;letter-spacing:-.02em;color:var(--blue2)}
+.syscard span{color:#c9d1db;font-size:15px}
+.syss{display:grid;gap:110px;margin-top:100px}
+.sys{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:center;scroll-margin-top:40px}
+.sys h2{margin:10px 0 16px}
+.syslist{list-style:none;margin:26px 0 30px;display:grid;gap:10px}
+.syslist li{padding-left:28px;position:relative;color:#c9d1db}
+.syslist li::before{content:"";position:absolute;left:0;top:9px;width:14px;height:4px;background:var(--blue)}
+.sysvis{display:grid;grid-template-columns:1fr;gap:16px}
+.sysphoto{border-radius:20px;background-size:cover;background-position:center;min-height:260px}
+.sysdraw svg{width:100%;height:auto;display:block;border-radius:18px;border:1px solid var(--line)}
+@media (max-width:1100px){.syscards{grid-template-columns:1fr 1fr}.sysvis{grid-template-columns:1fr}}
+@media (max-width:900px){.sys{grid-template-columns:1fr}}
+@media (max-width:700px){.syscards{grid-template-columns:1fr}.syss{gap:70px;margin-top:60px}}
+.sysphoto{position:relative;margin:0;overflow:hidden}
+.sysphoto figcaption{position:absolute;left:14px;bottom:14px;right:14px;font-size:12px;color:#fff;background:rgba(0,0,0,.55);padding:6px 10px;border-radius:999px;width:max-content;max-width:calc(100% - 28px)}

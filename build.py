@@ -26,8 +26,15 @@ for p in P:
     p["state"] = p["loc"].split(",")[-1].strip()
 BY = {p["slug"]: p for p in P}
 
-NAV = [("services.html", "Services"), ("materials.html", "Materials"), ("portfolio.html", "Portfolio"),
+NAV = [("services.html", "Services"), ("systems.html", "Systems"), ("materials.html", "Materials"), ("portfolio.html", "Portfolio"),
        ("tracking.html", "Tracking"), ("about.html", "About"), ("contact.html", "Contact")]
+
+
+def full(f):
+    """Large version used by the lightbox (falls back to the normal file)."""
+    d, n = f.rsplit('/', 1)
+    big = f'{d}/full/{n}'
+    return big if os.path.exists(os.path.join(ROOT, big)) else f
 
 
 def page(path, title, body, desc="", active=""):
@@ -54,7 +61,7 @@ def page(path, title, body, desc="", active=""):
 <footer><div class="wrap">
   <div><img src="{r}img/site/logo-light.png" alt="CFS Designs US"><p>Your one-stop shop for rainscreen facades.<br>5109 Commonwealth Dr<br>Fredericksburg, VA 22407</p><p style="margin-top:14px">Member of MCA &middot; RAINA</p></div>
   <div><h6>Services</h6><ul><li><a href="{r}services.html#drawings">Shop Drawings</a></li><li><a href="{r}services.html#engineering">Engineering &amp; Design</a></li><li><a href="{r}services.html#fabrication">Fabrication</a></li><li><a href="{r}services.html#subconstruction">Subconstruction</a></li><li><a href="{r}services.html#bending">Flashing &amp; Bending</a></li><li><a href="{r}services.html#distribution">Distribution</a></li></ul></div>
-  <div><h6>Company</h6><ul><li><a href="{r}about.html">About us</a></li><li><a href="{r}portfolio.html">Portfolio</a></li><li><a href="{r}materials.html">Materials</a></li><li><a href="{r}materials.html#reports">Testing reports</a></li></ul></div>
+  <div><h6>Company</h6><ul><li><a href="{r}about.html">About us</a></li><li><a href="{r}portfolio.html">Portfolio</a></li><li><a href="{r}materials.html">Materials</a></li><li><a href="{r}systems.html">CFS Systems</a></li></ul></div>
   <div><h6>Contact</h6><ul><li><a href="tel:+15404248623">(540) 424-8623</a></li><li><a href="mailto:info@cfsdesignsus.com">info@cfsdesignsus.com</a></li><li>Mon&ndash;Fri 7:00 am&ndash;3:30 pm</li><li><a href="{r}tracking.html">Track a delivery</a></li></ul></div>
 </div>
 <div class="wrap legal"><span>&copy; 2026 CFS Designs US</span><span class="prev">Preview of the new website &middot; not public</span></div>
@@ -244,7 +251,7 @@ def portfolio():
 def project(i, p):
     r = "../"
     prev, nxt = P[i - 1], P[(i + 1) % len(P)]
-    gallery = "".join(f'<a class="g" href="{r}{f}" data-i="{k}"><img loading="lazy" src="{r}{f}" alt="{E(p["name"])}, photo {k+1}"></a>' for k, f in enumerate(p["files"]))
+    gallery = "".join(f'<a class="g" href="{r}{full(f)}" data-i="{k}"><img loading="lazy" src="{r}{f}" alt="{E(p["name"])}, photo {k+1}"></a>' for k, f in enumerate(p["files"]))
     more = [q for q in P if q["sector"] == p["sector"] and q["slug"] != p["slug"]][:3]
     body = f"""
 <header class="phead tall" style="background-image:url({r}{p['files'][0]})"><div class="wrap">
@@ -374,8 +381,89 @@ def contact():
     write("contact.html", page("contact.html", "Contact | CFS Designs US", body, active="contact.html"))
 
 
+def section_svg(kind):
+    """Original illustrative horizontal section of a CFS system (not to scale)."""
+    blue, steel, dark, line = "#0290fa", "#9aa4b2", "#2a313b", "#5c6773"
+    parts = [f'<rect x="0" y="0" width="560" height="300" rx="18" fill="#0d1117"/>',
+             # substrate + sheathing + WRB
+             f'<rect x="40" y="40" width="34" height="220" fill="{dark}"/><text x="57" y="282" fill="{steel}" font-size="11" text-anchor="middle">Wall</text>',
+             f'<rect x="74" y="40" width="6" height="220" fill="{blue}" opacity=".7"/>',
+             f'<text x="77" y="30" fill="{steel}" font-size="11" text-anchor="middle">WRB</text>']
+    # subframe (girts / rails)
+    for y in (70, 160):
+        parts.append(f'<path d="M80 {y} h60 v40 h-60" fill="none" stroke="{steel}" stroke-width="5"/>')
+    parts.append(f'<text x="112" y="282" fill="{steel}" font-size="11" text-anchor="middle">CFS subframe</text>')
+    if kind in ("acm_wet", "acm_dry"):
+        gap = 14 if kind == "acm_dry" else 10
+        for y0, y1 in ((40, 145 - gap / 2), (145 + gap / 2, 260)):
+            # tray: face outside (right), returns folded back toward the wall
+            parts.append(f'<path d="M150 {y0 + 3} h40 v{y1 - y0 - 6} h-40" fill="none" stroke="{blue}" stroke-width="5" stroke-linejoin="round"/>')
+            parts.append(f'<rect x="186" y="{y0}" width="8" height="{y1 - y0}" fill="{blue}"/>')
+        if kind == "acm_wet":
+            parts.append(f'<rect x="186" y="140" width="8" height="10" fill="#e8edf2"/><circle cx="182" cy="145" r="4" fill="{steel}"/>')
+            parts.append(f'<text x="330" y="150" fill="#fff" font-size="15">Sealed joint (wet seal)</text>')
+        else:
+            parts.append(f'<rect x="150" y="138" width="44" height="14" fill="#0d1117"/><rect x="150" y="141" width="6" height="8" fill="{steel}"/>')
+            parts.append(f'<text x="330" y="150" fill="#fff" font-size="15">Open reveal (dry joint)</text>')
+        parts.append(f'<path d="M200 145 L320 145" stroke="{line}" stroke-dasharray="4 4"/>')
+        for y in (95, 205):
+            parts.append(f'<path d="M140 {y} h12" stroke="{steel}" stroke-width="4"/>')
+        parts.append(f'<text x="330" y="80" fill="#fff" font-size="15">ACM tray, routed and returned</text><path d="M198 75 L320 75" stroke="{line}" stroke-dasharray="4 4"/>')
+        parts.append(f'<text x="330" y="215" fill="#fff" font-size="15">Clip and extrusion on subframe</text><path d="M140 205 L320 210" stroke="{line}" stroke-dasharray="4 4"/>')
+    else:
+        for y0, y1 in ((40, 140), (150, 260)):
+            parts.append(f'<rect x="146" y="{y0}" width="16" height="{y1 - y0}" fill="#8f8a82"/>')
+        parts.append(f'<rect x="146" y="140" width="16" height="10" fill="{dark}"/>')
+        if kind == "fc_hidden":
+            for y in (90, 205):
+                parts.append(f'<path d="M140 {y} h14" stroke="{blue}" stroke-width="5"/>')
+            parts.append(f'<text x="330" y="100" fill="#fff" font-size="15">Concealed anchors, no visible screws</text><path d="M160 95 L320 95" stroke="{line}" stroke-dasharray="4 4"/>')
+        else:
+            for y in (90, 205):
+                parts.append(f'<circle cx="168" cy="{y}" r="5" fill="{blue}"/><path d="M140 {y} h28" stroke="{blue}" stroke-width="3"/>')
+            parts.append(f'<text x="330" y="100" fill="#fff" font-size="15">Colour-matched face fasteners</text><path d="M175 95 L320 95" stroke="{line}" stroke-dasharray="4 4"/>')
+        parts.append(f'<text x="330" y="150" fill="#fff" font-size="15">Fiber cement panel</text><path d="M165 150 L320 150" stroke="{line}" stroke-dasharray="4 4"/>')
+        parts.append(f'<text x="330" y="215" fill="#fff" font-size="15">Ventilated cavity behind</text><path d="M120 215 L320 215" stroke="{line}" stroke-dasharray="4 4"/>')
+    parts.append(f'<text x="530" y="285" fill="#5c6773" font-size="10" text-anchor="end">Illustrative section, not to scale</text>')
+    return '<svg viewBox="0 0 560 300" role="img" font-family="Inter,sans-serif">' + "".join(parts) + "</svg>"
+
+
+SYSTEMS = [
+    ("cfs-3000", "CFS 3000", "ACM Wet Joint System", "acm_wet", ("img/projects/wardman/00.jpg", "ACM facade by CFS: Wardman Park, Washington, DC"),
+     "Aluminum composite panels routed and returned into trays, with sealed joints for a crisp, continuous facade line."),
+    ("cfs-4000", "CFS 4000", "ACM Dry Joint System", "acm_dry", ("img/projects/edgewood/00.jpg", "ACM facade by CFS: Edgewood, Washington, DC"),
+     "Aluminum composite panels with open reveals: a rainscreen that drains and ventilates, with clean shadow lines."),
+    ("cfs-5000", "CFS 5000", "Fiber Cement Concealed Fastener System", "fc_hidden", ("img/projects/225/00.jpg", "Fiber cement facade by CFS: 225 Vine Street, Washington, DC"),
+     "Fiber cement panels held by concealed anchors on the CFS subframe, for a smooth face with no visible screws."),
+    ("cfs-6000", "CFS 6000", "Fiber Cement Face Fastener System", "fc_face", ("img/projects/pickersgille/00.jpg", "Fiber cement facade by CFS: Pickersgill, Towson, MD"),
+     "Fiber cement panels fixed with colour-matched face fasteners on the CFS subframe: fast, economical and proven."),
+]
+
+
+def systems():
+    r = ""
+    cards = "".join(f'<a class="syscard" href="#{k}"><b>{code}</b><span>{E(name)}</span></a>' for k, code, name, *_ in SYSTEMS)
+    blocks = "".join(f"""<div class="sys" id="{k}">
+      <div class="systxt"><div class="eyebrow">{code}</div><h2>{E(name)}</h2><p class="sub">{E(desc)}</p>
+        <ul class="syslist"><li>Shop drawings and engineering support</li><li>Fabricated in our Fredericksburg factory</li><li>Subframe, panels and flashing from one partner</li><li>Testing report available</li></ul>
+        <a class="btn btn-ghost" href="contact.html">Request the {code} report</a></div>
+      <div class="sysvis"><figure class="sysphoto" style="background-image:url({img[0]})"><figcaption>{E(img[1])}</figcaption></figure><div class="sysdraw">{section_svg(kind)}</div></div>
+    </div>""" for k, code, name, kind, img, desc in SYSTEMS)
+    body = f"""
+<header class="phead" style="background-image:url(img/projects/gmu/00.jpg)"><div class="wrap">
+  <div class="eyebrow">CFS Systems</div><h1>Tested systems. Built by us.</h1>
+  <p class="lead">Four rainscreen systems for ACM and fiber cement, engineered, tested and fabricated by CFS Designs US.</p>
+</div></header>
+<section style="padding-top:60px"><div class="wrap">
+  <div class="syscards">{cards}</div>
+  <div class="syss">{blocks}</div>
+</div></section>
+{cta_block(r)}"""
+    write("systems.html", page("systems.html", "CFS Systems | CFS Designs US", body, active="systems.html"))
+
+
 if __name__ == "__main__":
-    home(); portfolio(); services(); materials(); tracking(); about(); contact()
+    home(); portfolio(); services(); systems(); materials(); tracking(); about(); contact()
     for i, p in enumerate(P):
         project(i, p)
-    print("built", 7 + len(P), "pages")
+    print("built", 8 + len(P), "pages")
