@@ -101,3 +101,14 @@ function demoTrack(form) {
   res.scrollIntoView({ behavior: 'smooth' });
   return false;
 }
+
+// Aerial film window
+function openFilm() {
+  var f = document.querySelector('.film'); if (!f) return;
+  f.classList.add('on'); var v = f.querySelector('video'); try { v.play(); } catch (e) {}
+}
+function closeFilm(e) {
+  var f = document.querySelector('.film');
+  if (e.target === f || e.target.classList.contains('lbx')) { f.classList.remove('on'); f.querySelector('video').pause(); }
+}
+document.addEventListener('keydown', function (e) { var f = document.querySelector('.film.on'); if (f && e.key === 'Escape') { f.classList.remove('on'); f.querySelector('video').pause(); } });

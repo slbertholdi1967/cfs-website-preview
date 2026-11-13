@@ -195,16 +195,18 @@ def phone_mock(r):
 
 def factory_block(r):
     return f"""<section class="factory" style="padding-top:0"><div class="wrap">
-  <div class="fbox">
-    <div style="position:relative;z-index:2;max-width:520px">
-      <div class="eyebrow">Inside the factory</div>
-      <h2>Walk the floor with us.</h2>
-      <p class="sub">100,000 square feet of routers, brakes and loading docks. A short film from the first cut to the truck is coming soon.</p>
-      <div style="margin-top:30px"><a class="btn btn-ghost" href="{r}about.html">Our story</a></div>
+  <div class="fbox vid">
+    <video class="bgv" autoplay muted loop playsinline preload="metadata" poster="{r}video/drone-poster.jpg"><source src="{r}video/drone-loop.mp4" type="video/mp4"></video>
+    <div style="position:relative;z-index:2;max-width:540px">
+      <div class="eyebrow">Our facility</div>
+      <h2>100,000 square feet in Fredericksburg, Virginia.</h2>
+      <p class="sub">Fabrication, bending, warehouse and loading docks on one campus, so every facade leaves complete and on time.</p>
+      <div style="margin-top:30px;display:flex;gap:12px;flex-wrap:wrap"><button class="btn btn-blue" onclick="openFilm()">&#9654;&nbsp; Watch the aerial film</button><a class="btn btn-ghost" href="{r}about.html">Our story</a></div>
     </div>
-    <div class="play" aria-hidden="true"></div>
+    <button class="play" aria-label="Watch the aerial film" onclick="openFilm()"></button>
   </div>
-</div></section>"""
+</div></section>
+<div class="film" onclick="closeFilm(event)"><button class="lbx" aria-label="Close">&times;</button><video controls playsinline preload="none" poster="{r}video/drone-poster.jpg"><source src="{r}video/cfs-facility.mp4" type="video/mp4"></video></div>"""
 
 
 def cta_block(r):
@@ -339,7 +341,7 @@ def tracking():
 def about():
     r = ""
     body = f"""
-<header class="phead" style="background-image:url(img/site/hero.jpg)"><div class="wrap">
+<header class="phead tall" style="background-image:url(video/drone-poster.jpg)"><video class="bgv" autoplay muted loop playsinline preload="metadata" poster="video/drone-poster.jpg"><source src="video/drone-loop.mp4" type="video/mp4"></video><div class="wrap">
   <div class="eyebrow">About us</div><h1>Since 2017, building the East Coast's facades.</h1>
 </div></header>
 <section><div class="wrap about">
