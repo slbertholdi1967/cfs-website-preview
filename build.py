@@ -4,6 +4,10 @@ Run: python3 build.py  -> writes the HTML pages next to this file. Data: data/pr
 import html, json, os, re
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
+# Go-live switch: set PREVIEW = False when the new site replaces www.cfsdesignsus.com (owner, Nov 14 2026: the footer
+# then credits the developer). The noindex tags and robots.txt are changed at go-live too.
+PREVIEW = True
+FOOTER_NOTE = "Preview of the new website &middot; not public" if PREVIEW else "Developed by Sergio Bertholdi"
 P = json.load(open(os.path.join(ROOT, "data/projects.json")))
 E = html.escape
 
@@ -67,7 +71,7 @@ def page(path, title, body, desc="", active=""):
   <div><h6>Company</h6><ul><li><a href="{r}about.html">About us</a></li><li><a href="{r}portfolio.html">Portfolio</a></li><li><a href="{r}materials.html">Materials</a></li><li><a href="{r}systems.html">CFS Systems</a></li><li><a href="{r}careers.html">Careers</a></li><li><a href="{r}downloads/CFS-Designs-US-Brochure.pdf" download>Brochure (PDF)</a></li></ul></div>
   <div><h6>Contact</h6><ul><li><a href="tel:+15404248623">(540) 424-8623</a></li><li><a href="mailto:info@cfsdesignsus.com">info@cfsdesignsus.com</a></li><li>Mon&ndash;Fri 7:00 am&ndash;3:30 pm</li><li><a href="{r}tracking.html">Track a delivery</a></li></ul></div>
 </div>
-<div class="wrap legal"><span>&copy; 2026 CFS Designs US</span><span class="prev">Preview of the new website &middot; not public</span></div>
+<div class="wrap legal"><span>&copy; 2026 CFS Designs US</span><span class="prev">{FOOTER_NOTE}</span></div>
 </footer>
 <script src="{r}js/site.js"></script>
 </body></html>"""

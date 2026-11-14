@@ -75,4 +75,6 @@ Every page is `noindex`, `robots.txt` blocks everything, the footer says "Previe
    `publish-content.yml`. Pending: owner applies 1-line SQL (admin gets website.publish), creates the GitHub token
    (fine-grained, this repo, Contents read/write) and saves it in Lovable as secret WEBSITE_GITHUB_TOKEN, publishes
    Core in Lovable, then we test one publish together. Brochure PDF is not rebuilt by the workflow (run by hand).
+8. **At go-live** (owner, Nov 14): set `PREVIEW = False` in build.py, so the footer reads "Developed by Sergio
+   Bertholdi" instead of "Preview of the new website - not public"; also remove noindex and open robots.txt.
 6. Owner may tick **Enforce HTTPS** in GitHub > Settings > Pages (certificate is issued).
