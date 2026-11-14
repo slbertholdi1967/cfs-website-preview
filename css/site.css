@@ -395,3 +395,9 @@ footer .social{display:inline-flex;align-items:center;gap:8px;margin-top:14px}
 .map .dot:focus{outline:none}.map .dot:focus-visible circle{stroke:var(--blue2);stroke-width:2.5}
 .mapinfo li.more{color:var(--muted);font-style:italic}
 .path .pnote{margin-top:14px;font-size:13px;color:var(--muted);line-height:1.5}
+.tways{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px;max-width:860px}
+.tway{display:flex;gap:14px;background:rgba(13,17,23,.72);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:16px;padding:18px}
+.tway>b{flex:none;width:30px;height:30px;border-radius:50%;background:var(--blue);display:grid;place-items:center;font-size:14px}
+.tway h4{font-size:16px;margin-bottom:4px}.tway p{color:#cfd6de;font-size:14px;line-height:1.5}
+@media (max-width:700px){.tways{grid-template-columns:1fr}}
+button.btn{font:inherit;font-weight:600;font-size:16px;cursor:pointer;border:0}button.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff}

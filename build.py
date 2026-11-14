@@ -508,9 +508,13 @@ def tracking():
     body = f"""
 <header class="phead" style="background-image:url(img/site/trucks.jpg)"><div class="wrap">
   <div class="eyebrow">Tracking</div><h1>Follow your delivery, live.</h1>
-  <p class="lead">Type your Job number or scan the QR code on any CFS pallet.</p>
-  <form class="tform" onsubmit="return demoTrack(this)"><input placeholder="Job number, e.g. DEMO-2026" required><button class="btn btn-blue">Track</button></form>
-  <p class="demo-hint">Preview: type <b>DEMO-2026</b> to see an example. On the live site this shows your real Job.</p>
+  <p class="lead">Everything about your Job is in the QR code on your pallets and packing lists. Scan it with your phone camera and your Job's live page opens. No account, no password.</p>
+  <div class="tways">
+    <div class="tway"><b>1</b><div><h4>Scan the QR code</h4><p>Every CFS pallet and packing list carries the QR code of its Job.</p></div></div>
+    <div class="tway"><b>2</b><div><h4>Or ask your project manager</h4><p>No QR code at hand? Ask your CFS project manager and we send you the private link of your Job by email or text message.</p></div></div>
+  </div>
+  <div class="ctas" style="margin-top:26px"><a class="btn btn-blue" href="contact.html">Ask for your link &rarr;</a><button class="btn btn-ghost" type="button" onclick="return demoTrack()">See an example</button></div>
+  <p class="demo-hint">For your security, a Job can only be opened from its QR code or its private link, never by typing a Job number.</p>
 </div></header>
 <section class="tracker" id="result" hidden><div class="wrap">
   <div class="tres">

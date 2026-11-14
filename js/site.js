@@ -83,9 +83,9 @@ function demoSubmit(form) {
 }
 
 // Tracking: example data only.
-function demoTrack(form) {
-  var v = form.querySelector('input').value.trim().toUpperCase(), res = document.getElementById('result'), list = document.getElementById('tlist');
-  if (v !== 'DEMO-2026') { form.querySelector('input').value = ''; form.querySelector('input').placeholder = 'Preview: try DEMO-2026'; return false; }
+// Opens the example Job (DEMO-2026). Real Jobs open only from their QR code or private link (owner 179).
+function demoTrack() {
+  var res = document.getElementById('result'), list = document.getElementById('tlist');
   var rows = [
     ['Pallet #14', 'North elevation, 22 panels', 'In production', 'prod', 'Starts Fri'],
     ['Pallet #13', 'North elevation, 31 panels', 'In production', 'prod', 'Cut today'],
