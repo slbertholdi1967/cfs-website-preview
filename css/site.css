@@ -372,3 +372,14 @@ footer .social{display:inline-flex;align-items:center;gap:8px;margin-top:14px}
 .map .zoombox{fill:none;stroke:var(--blue2);stroke-width:1;stroke-dasharray:3 2}
 @media (max-width:900px){.maps{grid-template-columns:1fr}.mapsec h2{font-size:32px!important}}
 .map path,.map circle,.map rect{vector-effect:non-scaling-stroke}.map .dot circle{stroke-width:1.2}
+.sus{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+.sus p{color:var(--muted);font-size:15px;line-height:1.6}.sus h3{font-size:20px;margin:0 0 10px}
+.form select.f{font:inherit;color:#0b0d10;width:100%;background:#fff;appearance:auto}
+.faqw{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:start}
+.faq{border-top:1px solid var(--line);padding:20px 0}.faq:last-child{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;font-size:19px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:20px}
+.faq summary::-webkit-details-marker{display:none}.faq summary::after{content:"+";color:var(--blue2);font-size:24px;line-height:1}
+.faq[open] summary::after{content:"\2212"}.faq p{color:var(--muted);line-height:1.65;margin-top:12px;font-size:16px}
+@media (max-width:900px){.sus{grid-template-columns:1fr 1fr}.faqw{grid-template-columns:1fr;gap:20px}}
+@media (max-width:600px){.sus{grid-template-columns:1fr}}
+.process .faq{border-color:#dde3ea}.process .faq p{color:#4c5865}

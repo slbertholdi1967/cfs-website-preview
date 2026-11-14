@@ -100,9 +100,9 @@ BRANDS = ["Alucobond", "Alpolic", "Reynobond", "Alfrex", "Equitone", "Nichiha", 
 
 
 PATHS = [
-    ("For architects &amp; engineers", "Specify with confidence.", [("CFS rainscreen systems", "systems.html"), ("Testing reports", "materials.html#reports"), ("Materials and brands", "materials.html")]),
-    ("For general contractors", "Clear quotes, on schedule.", [("Request a quote", "contact.html"), ("Projects we have built", "portfolio.html"), ("Live delivery tracking", "tracking.html")]),
-    ("For installers", "Every pallet, accounted for.", [("Track your pallets", "tracking.html"), ("Flashing &amp; bending", "services.html#bending"), ("System details", "systems.html")]),
+    ("For architects &amp; engineers", "Specify with confidence.", [("CFS rainscreen systems", "systems.html"), ("Testing reports", "materials.html#reports"), ("Sustainability", "materials.html#sustainability"), ("Request samples", "materials.html#samples")]),
+    ("For general contractors", "Clear quotes, on schedule.", [("Request a quote", "contact.html"), ("Projects we have built", "portfolio.html"), ("Live delivery tracking", "tracking.html"), ("Questions and answers", "contact.html#faq")]),
+    ("For installers", "Every pallet, accounted for.", [("Track your pallets", "tracking.html"), ("Flashing &amp; bending", "services.html#bending"), ("System details", "systems.html"), ("Talk to our team", "contact.html")]),
 ]
 
 
@@ -422,6 +422,32 @@ def materials():
   <p class="sub">CFS systems are tested. Architects and engineers can request each report.</p>
   <div class="reps">{rp}</div>
 </div></section>
+<section id="sustainability"><div class="wrap">
+  <div class="eyebrow">Sustainability</div><h2>Better walls, less waste.</h2>
+  <p class="sub">A rainscreen is one of the most durable ways to clad a building. Here is how we help your project meet its goals.</p>
+  <div class="sus">
+    <div class="path"><h3>Ventilated, insulated walls</h3><p>A rainscreen keeps the insulation outside the structure and lets the cavity behind the panels drain and dry, which helps the wall manage moisture and energy.</p></div>
+    <div class="path"><h3>Recyclable materials</h3><p>Aluminum can be recycled again and again without losing its properties, and the metal in our panels, trims and subframes can be recovered at the end of the building's life.</p></div>
+    <div class="path"><h3>Documents for your submittals</h3><p>Ask us for the manufacturer documentation your project needs: Environmental Product Declarations (EPDs), LEED data sheets and recycled content letters.</p></div>
+    <div class="path"><h3>Close to your jobsite</h3><p>Fabricated in Fredericksburg, Virginia, a short drive from Washington, DC, Maryland and Northern Virginia, with full pallets packed by area.</p></div>
+  </div>
+</div></section>
+<section class="process" id="samples"><div class="wrap contact">
+  <div>
+    <div class="eyebrow">Samples</div><h2 style="font-size:40px">See the real finish.</h2>
+    <p class="sub">Colors look different on screen. Tell us the material and the color you are considering, and we will send you a sample.</p>
+  </div>
+  <form class="form" onsubmit="return demoSubmit(this)">
+    <input class="f" required placeholder="Name and company">
+    <input class="f" required placeholder="Email or phone">
+    <select class="f" required><option value="">Material</option><option>ACM</option><option>Fiber cement</option><option>HPL</option><option>Flashing / metal</option></select>
+    <input class="f" placeholder="Manufacturer and color, e.g. Alucobond Classic Bronze">
+    <input class="f" placeholder="Project name and city">
+    <input class="f" required placeholder="Shipping address">
+    <button class="btn" type="submit">Request samples &rarr;</button>
+    <p class="demo-note" hidden>Preview only: nothing was sent. On the live site this request reaches our team.</p>
+  </form>
+</div></section>
 {cta_block(r)}"""
     write("materials.html", page("materials.html", "Materials | CFS Designs US", body, active="materials.html"))
 
@@ -469,6 +495,23 @@ def about():
     write("about.html", page("about.html", "About | CFS Designs US", body, active="about.html"))
 
 
+FAQ = [
+    ("What do you need to prepare a quote?", "Architectural drawings, elevations or a panel list, in PDF, DWG or Excel, plus your schedule. If you only have an idea, send it anyway: our team will tell you what is missing."),
+    ("Which materials do you work with?", "Aluminum composite (ACM), fiber cement, high pressure laminate (HPL) and break metal flashings, from manufacturers such as Alucobond, Alpolic, Reynobond, Equitone, Nichiha and Fundermax."),
+    ("Do you provide shop drawings and engineering?", "Yes. Our in-house team prepares the shop drawings and supports the design and engineering, from the first concept to the final detail."),
+    ("Are CFS systems tested?", "Yes. Each CFS system (3000, 4000, 5000 and 6000) has a testing report. Architects and engineers can request it from our team."),
+    ("Do you supply the subframe and the flashing too?", "Yes. Panels, rainscreen subframe and flashings can all come from CFS, packed together by area so your crew has everything it needs."),
+    ("Where do you work?", "We are based in Fredericksburg, Virginia. Our featured projects are in 10 states, from Massachusetts to Texas, with most of them in Washington, DC, Maryland and Virginia."),
+    ("How do I follow my delivery?", "Every Job has its own tracking page. Use the private link we send you or scan the QR code on any CFS pallet to see what is in production, on the truck or delivered."),
+    ("When can I reach you?", "Monday to Friday, 7:00 am to 3:30 pm, at (540) 424-8623 or info@cfsdesignsus.com."),
+]
+
+
+def faq_block():
+    items = "".join(f'<details class="faq"><summary>{E(q)}</summary><p>{E(a)}</p></details>' for q, a in FAQ)
+    return f'<section class="process" id="faq"><div class="wrap faqw"><div><div class="eyebrow">FAQ</div><h2 style="font-size:40px">Questions we hear often.</h2></div><div>{items}</div></div></section>'
+
+
 def contact():
     r = ""
     body = f"""
@@ -487,7 +530,8 @@ def contact():
     </div>
   </div>
   <div class="ctabox solo">{quote_form()}</div>
-</div></section>"""
+</div></section>
+{faq_block()}"""
     write("contact.html", page("contact.html", "Contact | CFS Designs US", body, active="contact.html"))
 
 
