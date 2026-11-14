@@ -112,3 +112,13 @@ function closeFilm(e) {
   if (e.target === f || e.target.classList.contains('lbx')) { f.classList.remove('on'); f.querySelector('video').pause(); }
 }
 document.addEventListener('keydown', function (e) { var f = document.querySelector('.film.on'); if (f && e.key === 'Escape') { f.classList.remove('on'); f.querySelector('video').pause(); } });
+
+document.querySelectorAll('.map .dot').forEach(function (d) {
+  function go() {
+    var s = document.querySelector('.search'); if (!s) return;
+    s.value = d.dataset.loc.split(',')[0]; filterProjects();
+    document.getElementById('all').scrollIntoView({behavior: 'smooth'});
+  }
+  d.addEventListener('click', go);
+  d.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+});

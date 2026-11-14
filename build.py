@@ -243,6 +243,100 @@ def quote_form():
   </form>"""
 
 
+CITY = {  # approximate city centres (lat, lon) for the project map
+    "Washington, DC": (38.907, -77.037), "Alexandria, VA": (38.805, -77.047), "Arlington, VA": (38.880, -77.107),
+    "Hyattsville, MD": (38.956, -76.946), "Bethesda, MD": (38.985, -77.095), "Rockville, MD": (39.084, -77.153),
+    "Lorton, VA": (38.704, -77.228), "Towson, MD": (39.402, -76.602), "West Falls Church, VA": (38.890, -77.188),
+    "Manassas, VA": (38.751, -77.475), "Stafford, VA": (38.422, -77.408), "Martinsburg, WV": (39.456, -77.964),
+    "Chantilly, VA": (38.894, -77.431), "Great Falls, VA": (39.000, -77.288), "Newport News, VA": (37.087, -76.473),
+    "Randallstown, MD": (39.367, -76.795), "Virginia Beach, VA": (36.853, -75.978), "Trenton, GA": (34.872, -85.509),
+    "Baltimore, MD": (39.290, -76.612), "Dover, DE": (39.158, -75.524), "Gaithersburg, MD": (39.143, -77.202),
+    "Woodbridge, VA": (38.658, -77.250), "Westlake, TX": (32.991, -97.195), "Soddy Daisy, TN": (35.236, -85.191),
+    "Oklahoma City, OK": (35.468, -97.516), "West Roxbury, MA": (42.279, -71.149), "Waltham, MA": (42.376, -71.236),
+}
+HQ = (38.303, -77.461)  # Fredericksburg, VA
+
+
+def albers(lat, lon):
+    """d3.geoAlbersUsa (lower 48), matching us-atlas states-albers-10m.json."""
+    import math
+    r = math.radians
+    p0, p1 = r(29.5), r(45.5)
+    n = (math.sin(p0) + math.sin(p1)) / 2
+    c = math.cos(p0) ** 2 + 2 * n * math.sin(p0)
+    r0 = math.sqrt(c) / n
+    def raw(la, ph):
+        rr = math.sqrt(c - 2 * n * math.sin(ph)) / n
+        return rr * math.sin(la * n), r0 - rr * math.cos(la * n)
+    x, y = raw(r(lon + 96), r(lat))
+    xc, yc = raw(r(-0.6), r(38.7))
+    return 487.5 + 1300 * (x - xc), 305 - 1300 * (y - yc)
+
+
+def us_paths():
+    t = json.load(open(os.path.join(ROOT, "data/us-states-albers.json")))
+    (sx, sy), (tx, ty) = t["transform"]["scale"], t["transform"]["translate"]
+    arcs = []
+    for a in t["arcs"]:
+        x = y = 0; pts = []
+        for dx, dy in a:
+            x += dx; y += dy; pts.append((x * sx + tx, y * sy + ty))
+        arcs.append(pts)
+    def ring(idx):
+        pts = []
+        for i in idx:
+            seg = arcs[i] if i >= 0 else arcs[~i][::-1]
+            pts += seg if not pts else seg[1:]
+        return "M" + "L".join(f"{x:.1f},{y:.1f}" for x, y in pts) + "Z"
+    states = {p["state"] for p in P}
+    out = []
+    for g in t["objects"]["states"]["geometries"]:
+        polys = g["arcs"] if g["type"] == "MultiPolygon" else [g["arcs"]]
+        d = "".join(ring(rg) for poly in polys for rg in poly)
+        ab = STATE_ABBR.get(g["properties"]["name"], "")
+        out.append(f'<path d="{d}" class="{"on" if ab in states else ""}"><title>{E(g["properties"]["name"])}</title></path>')
+    return "".join(out)
+
+
+STATE_ABBR = {"District of Columbia": "DC", "Virginia": "VA", "Maryland": "MD", "West Virginia": "WV", "Delaware": "DE",
+              "Georgia": "GA", "Texas": "TX", "Tennessee": "TN", "Oklahoma": "OK", "Massachusetts": "MA"}
+
+
+def map_block():
+    from collections import defaultdict
+    by = defaultdict(list)
+    for p in P:
+        by[p["loc"]].append(p)
+    paths = us_paths()
+    def dots(scale, labels, fs=1):
+        out = []
+        for loc, ps in sorted(by.items(), key=lambda kv: -len(kv[1])):
+            x, y = albers(*CITY[loc])
+            rad = (2.2 + 1.4 * len(ps) ** .5) * scale
+            names = ", ".join(q["name"] for q in ps)
+            out.append(f'<g class="dot" data-loc="{E(loc)}" tabindex="0" role="button" aria-label="{E(loc)}: {len(ps)} project(s)"><circle cx="{x:.1f}" cy="{y:.1f}" r="{rad:.2f}"/><title>{E(loc)} ({len(ps)}): {E(names)}</title></g>')
+            if labels and len(ps) >= 3:
+                out.append(f'<text x="{x + rad + 1.2 * scale:.1f}" y="{y + 1.2 * scale:.1f}" style="font-size:{fs:.2f}px">{E(loc.split(",")[0])} &middot; {len(ps)}</text>')
+        hx, hy = albers(*HQ)
+        out.append(f'<g class="hq"><rect x="{hx - 2.2 * scale:.1f}" y="{hy - 2.2 * scale:.1f}" width="{4.4 * scale:.1f}" height="{4.4 * scale:.1f}" transform="rotate(45 {hx:.1f} {hy:.1f})"/><title>CFS Designs US factory, Fredericksburg, VA</title></g>')
+        if labels:
+            out.append(f'<text class="hqt" x="{hx + 4 * scale:.1f}" y="{hy + 1.3 * scale:.1f}" style="font-size:{fs:.2f}px">CFS factory, Fredericksburg</text>')
+        return "".join(out)
+    # zoom window on the Washington, DC region
+    x0, y0 = albers(39.62, -77.85); x1, y1 = albers(38.0, -76.35)
+    zx, zy, zw, zh = x0, y0, x1 - x0, y1 - y0
+    k = zw / 975
+    return f"""<section class="mapsec"><div class="wrap">
+  <div class="eyebrow">Where we have built</div>
+  <h2 style="font-size:40px">{len(P)} projects in {len(set(p["state"] for p in P))} states.</h2>
+  <p class="sub">Tap a city to see its projects.</p>
+  <div class="maps">
+    <figure class="map"><svg viewBox="0 0 975 610" role="img" aria-label="Map of CFS projects in the United States"><g class="st">{paths}</g><rect class="zoombox" x="{zx:.1f}" y="{zy:.1f}" width="{zw:.1f}" height="{zh:.1f}"/>{dots(1, False)}</svg><figcaption>United States</figcaption></figure>
+    <figure class="map"><svg viewBox="{zx:.1f} {zy:.1f} {zw:.1f} {zh:.1f}" role="img" aria-label="Map of CFS projects around Washington, DC"><g class="st" style="stroke-width:{.5 * k * 4:.2f}">{paths}</g>{dots(k * 2.6, True, k * 15)}</svg><figcaption>Washington, DC region</figcaption></figure>
+  </div>
+</div></section>"""
+
+
 def portfolio():
     r = ""
     chips = '<span class="chip on" data-f="">All</span>' + "".join(
@@ -254,7 +348,8 @@ def portfolio():
   <h1>{len(P)} buildings. One standard.</h1>
   <p class="lead">Residential towers, hospitals, universities, stores and public buildings across the East Coast and beyond.</p>
 </div></header>
-<section style="padding-top:60px"><div class="wrap">
+{map_block()}
+<section style="padding-top:60px" id="all"><div class="wrap">
   <div class="ptools"><div class="filters">{chips}</div><input class="search" placeholder="Search a project or city" oninput="filterProjects()"></div>
   <p class="count"><b id="cnt">{len(P)}</b> projects</p>
   <div class="pall">{grid}</div>
