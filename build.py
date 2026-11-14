@@ -109,13 +109,15 @@ BRANDS = ["Alucobond", "Alpolic", "Reynobond", "Alfrex", "Equitone", "Nichiha", 
 PATHS = [
     ("For architects &amp; engineers", "Specify with confidence.", [("CFS rainscreen systems", "systems.html"), ("Testing reports", "materials.html#reports"), ("Sustainability", "materials.html#sustainability"), ("Request samples", "materials.html#samples")]),
     ("For general contractors", "Clear quotes, on schedule.", [("Request a quote", "contact.html"), ("Projects we have built", "portfolio.html"), ("Live delivery tracking", "tracking.html"), ("Questions and answers", "contact.html#faq")]),
-    ("For installers", "Every pallet, accounted for.", [("Track your pallets", "tracking.html"), ("Flashing &amp; bending", "services.html#bending"), ("System details", "systems.html"), ("Talk to our team", "contact.html")]),
+    ("For installers", "We supply. You install.", [("Shop drawings for your crew", "services.html#drawings"), ("Track your pallets", "tracking.html"), ("Flashing &amp; bending", "services.html#bending"), ("Technical support from our team", "contact.html")],
+     "CFS does not install. We work for installers, never against them."),
 ]
 
 
 def paths_block():
-    cols = "".join(f'<div class="path rv"><div class="eyebrow">{a}</div><h3>{b}</h3><ul>' + "".join(f'<li><a href="{h}">{t} <span>&rarr;</span></a></li>' for t, h in links) + '</ul></div>'
-                   for a, b, links in PATHS)
+    cols = "".join(f'<div class="path rv"><div class="eyebrow">{a}</div><h3>{b}</h3><ul>' + "".join(f'<li><a href="{h}">{t} <span>&rarr;</span></a></li>' for t, h in links) + '</ul>'
+                   + (f'<p class="pnote">{rest[0]}</p>' if rest else '') + '</div>'
+                   for a, b, links, *rest in PATHS)
     return f'<section class="paths-s"><div class="wrap"><h2 class="rv" style="font-size:40px">What are you looking for?</h2><div class="paths">{cols}</div></div></section>'
 
 
@@ -441,7 +443,7 @@ def services():
     body = f"""
 <header class="phead" style="background-image:url(img/site/factory.jpg)"><div class="wrap">
   <div class="eyebrow">Services</div><h1>One partner for the whole rainscreen.</h1>
-  <p class="lead">Our one-stop shop model keeps you comfortable and confident through the whole facade installation process.</p>
+  <p class="lead">Our one-stop shop model supports your team from the first drawing to the last pallet on site.</p>
 </div></header>
 <section><div class="wrap svcs">{blocks}</div></section>
 {cta_block(r)}"""

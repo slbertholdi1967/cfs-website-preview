@@ -394,3 +394,4 @@ footer .social{display:inline-flex;align-items:center;gap:8px;margin-top:14px}
 .map svg g.dot.on circle{fill:#fff;fill-opacity:1;stroke:var(--blue);stroke-width:2}
 .map .dot:focus{outline:none}.map .dot:focus-visible circle{stroke:var(--blue2);stroke-width:2.5}
 .mapinfo li.more{color:var(--muted);font-style:italic}
+.path .pnote{margin-top:14px;font-size:13px;color:var(--muted);line-height:1.5}

@@ -35,6 +35,9 @@ Every page is `noindex`, `robots.txt` blocks everything, the footer says "Previe
 
 ## Decisions and advice already given
 
+- **CFS does not install** (owner, Nov 14): never suggest installation services; installers are customers.
+  Home card "For installers: We supply. You install." with the note "CFS does not install".
+
 - Competitors reviewed: ceimaterials.com, amdnj.com, ecmsinc.net (they show named "systems", downloads, news; none has delivery tracking).
 - Squarespace cannot do the integrations (tracking, quotes into CFS Jobs) and only ~70% of the look: recommend our own site.
 - Official hosting recommendation: **Cloudflare Pages free plan** (commercial use allowed, unmetered static bandwidth,
