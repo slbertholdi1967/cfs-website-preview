@@ -350,3 +350,4 @@ footer a:hover{color:#fff}
 .film .lbx{position:absolute;top:24px;right:24px;background:rgba(255,255,255,.1);border:0;color:#fff;width:56px;height:56px;border-radius:50%;font-size:34px;cursor:pointer}
 @media (max-width:700px){.fbox .play:hover{transform:translate(50%,-50%) scale(1.08)}}
 @media (prefers-reduced-motion:reduce){.bgv{display:none}}
+footer .social{display:inline-flex;align-items:center;gap:8px;margin-top:14px}
