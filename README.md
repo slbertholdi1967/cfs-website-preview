@@ -9,3 +9,11 @@ for the board to review. It does not touch the live Squarespace site or the CFS 
 - Every page has `noindex, nofollow` and `robots.txt` blocks search engines: the preview is not public on Google.
 - The quote form and the delivery tracking are DEMOS with example data: nothing is sent and no CFS system is called.
 - `CNAME` holds the custom domain (preview.cfsdesignsus.com).
+
+## Publishing projects from CFS Core
+
+Website projects are edited in CFS Core (Website projects). Publishing there commits `content/projects.json` and new
+original photos (`content/originals/<slug>/`). The workflow `.github/workflows/publish-content.yml` then runs
+`tools/import_content.py` (photo enhancement, `data/projects.json`, portfolio cards, map coordinates) and `build.py`,
+commits the result and GitHub Pages serves it. Do not edit `data/projects.json` by hand once CFS Core has published:
+the next publish rewrites it.

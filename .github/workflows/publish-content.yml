@@ -1,0 +1,47 @@
+# Runs after every publish from CFS Core (Website projects): CFS Core commits content/projects.json and new original
+# photos; this job enhances the photos, rebuilds the pages and commits them. GitHub Pages then serves the result.
+name: Publish content from CFS Core
+
+on:
+  push:
+    branches: [main]
+    paths: ["content/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: publish-content
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install photo tools
+        run: pip install --quiet opencv-python-headless numpy pillow pillow-heif
+      - name: Import projects from CFS Core
+        run: python3 tools/import_content.py
+      - name: Build pages
+        run: python3 build.py
+      - name: Commit the website
+        run: |
+          git config user.name "cfs-website-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+          git commit -q -m "Website: import projects published from CFS Core"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
+      - name: Ask GitHub Pages to rebuild
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "Pages will rebuild on its own"

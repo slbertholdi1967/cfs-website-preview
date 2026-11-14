@@ -68,5 +68,11 @@ Every page is `noindex`, `robots.txt` blocks everything, the footer says "Previe
 7. **167a: Mark publishes new portfolio projects from a screen in CFS Core** ("as if everything already worked").
    Proposed: Core page Website > Projects (draft/publish), table + private storage bucket (SQL approved/applied by
    owner), Core server function with a GitHub token (Lovable secret) commits the project to this repo, a GitHub Action
-   enhances photos, builds and deploys. Waiting for answers 168-171 and a screen preview before building.
+   enhances photos, builds and deploys. 168a (admins only: Sergio + Mark), 169a (Mark publishes directly), 170a (42
+   projects imported), 171b (sector/system optional), 172a (screen approved). Built Nov 14: SQL applied by owner
+   (`website_projects` + bucket `website-photos` + permission `website.publish`); Core `/website` screens and
+   `websitePublish` server function (cfs-core-compass); here `tools/import_content.py` + workflow
+   `publish-content.yml`. Pending: owner applies 1-line SQL (admin gets website.publish), creates the GitHub token
+   (fine-grained, this repo, Contents read/write) and saves it in Lovable as secret WEBSITE_GITHUB_TOKEN, publishes
+   Core in Lovable, then we test one publish together. Brochure PDF is not rebuilt by the workflow (run by hand).
 6. Owner may tick **Enforce HTTPS** in GitHub > Settings > Pages (certificate is issued).

@@ -1,18 +1,26 @@
 """Professional-style enhancement of the CFS project photos.
 Steps: orientation, AI upscale (Real-ESRGAN general x4v3) when small, vertical/keystone correction,
 white balance, levels, local contrast, vibrance, gentle denoise, output sharpening."""
-import sys, json, math, os, numpy as np, cv2, onnxruntime as ort
+import sys, json, math, os, numpy as np, cv2
 from PIL import Image, ImageOps
 
-M = '/tmp/claude-0/-home-user/9d955f4f-cded-5ddc-beeb-34b2df886064/scratchpad/models/general.onnx'
-_so = ort.SessionOptions(); _so.intra_op_num_threads = 4
+# Real-ESRGAN general x4v3 ONNX model, used only for small photos. Optional: without it small photos are kept at
+# their size (phone photos are large enough). Set ENHANCE_MODEL to the .onnx file to enable it.
+M = os.environ.get('ENHANCE_MODEL', '')
+try:  # iPhone HEIC photos uploaded from CFS Core
+    from pillow_heif import register_heif_opener
+    register_heif_opener()
+except ImportError:
+    pass
 SESS = None
 
 
 def sess():
     global SESS
     if SESS is None:
-        SESS = ort.InferenceSession(M, _so, providers=['CPUExecutionProvider'])
+        import onnxruntime as ort  # only needed for the optional upscale model
+        so = ort.SessionOptions(); so.intra_op_num_threads = 4
+        SESS = ort.InferenceSession(M, so, providers=['CPUExecutionProvider'])
     return SESS
 
 
@@ -171,9 +179,11 @@ def process(src, out_full, out_mid, L_full=2400, L_mid=1200):
     img = load(src)
     h, w = img.shape[:2]
     log = [f'{w}x{h}']
-    if max(h, w) < 1900:
+    if max(h, w) < 1900 and M and os.path.exists(M):
         img = upscale4(img)
         log.append('ai-upscale x4')
+    elif max(h, w) < 1900:
+        log.append('small, no upscale model')
     else:
         img = cv2.fastNlMeansDenoisingColored(resize_long(img, min(max(h, w), 3200)), None, 3, 3, 7, 21)
     img, ks = keystone(img); log.append(ks)

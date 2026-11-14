@@ -22,7 +22,10 @@ SECTOR = {
 SECTORS = ["Residential", "Mixed use", "Commercial", "Education", "Healthcare", "Senior living", "Public", "Hospitality", "Industrial"]
 FEATURED = ["tidelockrental", "7607", "pike", "deloitte", "edgewood", "gmu"]
 for p in P:
-    p["sector"] = SECTOR[p["slug"]]
+    # Sector and CFS system come from CFS Core (content/projects.json via tools/import_content.py); SECTOR is the
+    # original classification, used only when a project has none.
+    p["sector"] = p.get("sector") or SECTOR.get(p["slug"], "")
+    p["system"] = p.get("system") or ""
     p["state"] = p["loc"].split(",")[-1].strip()
 BY = {p["slug"]: p for p in P}
 
@@ -79,7 +82,7 @@ def write(path, content):
 def pcard(p, r="", big=False):
     return (f'<a class="proj{" big" if big else ""}" href="{r}projects/{p["slug"]}.html" data-sector="{E(p["sector"])}" data-state="{E(p["state"])}" data-q="{E((p["name"] + " " + p["loc"] + " " + p["desc"]).lower())}">'
             f'<div class="ph" style="background-image:url({r}img/thumbs/{p["slug"]}.jpg)"></div>'
-            f'<span class="tag">{E(p["sector"])}</span><div class="cap"><b>{E(p["name"])}</b><span>{E(p["loc"])}</span></div></a>')
+            + (f'<span class="tag">{E(p["sector"])}</span>' if p["sector"] else '') + f'<div class="cap"><b>{E(p["name"])}</b><span>{E(p["loc"])}</span></div></a>')
 
 
 SERVICES = [
@@ -254,6 +257,10 @@ CITY = {  # approximate city centres (lat, lon) for the project map
     "Woodbridge, VA": (38.658, -77.250), "Westlake, TX": (32.991, -97.195), "Soddy Daisy, TN": (35.236, -85.191),
     "Oklahoma City, OK": (35.468, -97.516), "West Roxbury, MA": (42.279, -71.149), "Waltham, MA": (42.376, -71.236),
 }
+_CITIES_FILE = os.path.join(ROOT, "data/cities.json")  # filled by tools/import_content.py for new cities
+if os.path.exists(_CITIES_FILE):
+    for _k, _v in json.load(open(_CITIES_FILE)).items():
+        CITY.setdefault(_k, tuple(_v))
 HQ = (38.303, -77.461)  # Fredericksburg, VA
 
 
@@ -311,6 +318,8 @@ def map_block():
     def dots(scale, labels, fs=1):
         out = []
         for loc, ps in sorted(by.items(), key=lambda kv: -len(kv[1])):
+            if loc not in CITY:
+                continue  # no coordinates yet: the project is still listed, just not on the map
             x, y = albers(*CITY[loc])
             rad = (2.2 + 1.4 * len(ps) ** .5) * scale
             names = ", ".join(q["name"] for q in ps)
@@ -362,17 +371,17 @@ def project(i, p):
     r = "../"
     prev, nxt = P[i - 1], P[(i + 1) % len(P)]
     gallery = "".join(f'<a class="g" href="{r}{full(f)}" data-i="{k}"><img loading="lazy" src="{r}{f}" alt="{E(p["name"])}, photo {k+1}"></a>' for k, f in enumerate(p["files"]))
-    more = [q for q in P if q["sector"] == p["sector"] and q["slug"] != p["slug"]][:3]
+    more = [q for q in P if p["sector"] and q["sector"] == p["sector"] and q["slug"] != p["slug"]][:3]
     body = f"""
 <header class="phead tall" style="background-image:url({r}{p['files'][0]})"><div class="wrap">
   <a class="back" href="{r}portfolio.html">&larr; All projects</a>
-  <div class="eyebrow">{E(p['sector'])}</div>
+  <div class="eyebrow">{E(p['sector'] or 'Project')}</div>
   <h1>{E(p['name'])}</h1>
   <p class="lead">{E(p['loc'])}</p>
 </div></header>
 <section style="padding-top:70px"><div class="wrap pdetail">
   <div><p class="story">{E(p['desc'])}</p>
-    <div class="facts"><div><small>Location</small><b>{E(p['loc'])}</b></div><div><small>Sector</small><b>{E(p['sector'])}</b></div><div><small>Photos</small><b>{len(p['files'])}</b></div></div>
+    <div class="facts"><div><small>Location</small><b>{E(p['loc'])}</b></div>{f"<div><small>Sector</small><b>{E(p['sector'])}</b></div>" if p['sector'] else ''}{f"<div><small>System</small><b>{E(p['system'])}</b></div>" if p['system'] else ''}<div><small>Photos</small><b>{len(p['files'])}</b></div></div>
     <a class="btn btn-blue" href="{r}contact.html" style="margin-top:30px">Start a project like this &rarr;</a>
   </div>
   <div class="gallery">{gallery}</div>
