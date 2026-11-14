@@ -6,7 +6,7 @@ Read this first in a new session. The owner's working style and golden rules are
 ## How to work with the owner (Sergio Bertholdi)
 
 - Chat in **Portuguese**; everything on the site is in **English**.
-- **Numbered questions with lettered options** (last number used: **166**; continue from 167). Answers come as "157=a".
+- **Numbered questions with lettered options** (last number used: **171**; continue from 172). Answers come as "157=a".
 - **One step at a time**, preview before building, **never invent facts** (no fake testimonials, cities, materials,
   systems or AI-made photos presented as CFS work). Be economical; warn before running several agents.
 - Commit and push after each change; the site redeploys by itself in about 1 minute.
@@ -60,6 +60,13 @@ Every page is `noindex`, `robots.txt` blocks everything, the footer says "Previe
    email (157) asking for the CFS documents and test standards, which services CFS offers (3D scanning, BIM, estimating,
    PM, installation) and any factory certifications. **Downloads page (158a): build when Mark's files arrive.**
    Done: LinkedIn link in footer (160a, linkedin.com/company/33312311); Careers page with Sales Representatives and
-   link to LinkedIn openings (161b, 166b). No News page, no leadership page (162b). Still to propose: audience paths,
-   sustainability, samples, project map, FAQ, real testimonials, PDF brochure (164 not answered).
+   link to LinkedIn openings (161b, 166b). No News page, no leadership page (162b). 164 = all, done Nov 14: home
+   audience paths, project map on Portfolio (data/us-states-albers.json, CITY coords in build.py), Materials
+   sustainability + sample request (demo), Contact FAQ, brochure PDF (`python3 tools/make_brochure.py` ->
+   downloads/, rerun when content changes). Testimonials NOT built: need real quotes with permission.
+   Owner to confirm: CFS supplies EPD/LEED documents, sends samples, FAQ answers.
+7. **167a: Mark publishes new portfolio projects from a screen in CFS Core** ("as if everything already worked").
+   Proposed: Core page Website > Projects (draft/publish), table + private storage bucket (SQL approved/applied by
+   owner), Core server function with a GitHub token (Lovable secret) commits the project to this repo, a GitHub Action
+   enhances photos, builds and deploys. Waiting for answers 168-171 and a screen preview before building.
 6. Owner may tick **Enforce HTTPS** in GitHub > Settings > Pages (certificate is issued).
