@@ -84,6 +84,7 @@ Every page is `noindex`, `robots.txt` blocks everything, the footer says "Previe
    ZIP (data/cities.json). **Mark (Nov 14): no Job names for now**: only city/state/ZIP are saved and the panel says
    "N more projects". To show names later: GitHub > Settings > Secrets and variables > Actions > Variables >
    SHOW_JOB_NAMES = true (next send from the database brings them). Names of an earlier version remain in git history.
-8. **At go-live** (owner, Nov 14): set `PREVIEW = False` in build.py, so the footer reads "Developed by Sergio
+8. **At go-live, only after board approval** (owner, Nov 14): host on Cloudflare Pages (free) connected to this repo,
+   point www.cfsdesignsus.com to it (Squarespace Domains), set `PREVIEW = False` in build.py, so the footer reads "Developed by Sergio
    Bertholdi" instead of "Preview of the new website - not public"; also remove noindex and open robots.txt.
 6. Owner may tick **Enforce HTTPS** in GitHub > Settings > Pages (certificate is issued).
