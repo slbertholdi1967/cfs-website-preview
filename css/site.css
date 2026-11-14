@@ -383,3 +383,13 @@ footer .social{display:inline-flex;align-items:center;gap:8px;margin-top:14px}
 @media (max-width:900px){.sus{grid-template-columns:1fr 1fr}.faqw{grid-template-columns:1fr;gap:20px}}
 @media (max-width:600px){.sus{grid-template-columns:1fr}}
 .process .faq{border-color:#dde3ea}.process .faq p{color:#4c5865}
+.map .dot circle{fill:#7f8b99;fill-opacity:.75}
+.map .dot.ph circle{fill:var(--blue);fill-opacity:.9}
+.mapinfo{margin-top:18px;background:var(--ink2);border:1px solid var(--line);border-radius:20px;padding:22px 24px}
+.mapinfo .mih{display:flex;align-items:baseline;gap:14px;margin-bottom:10px}.mapinfo .mih b{font-size:20px}
+.mapinfo .mih span{color:var(--muted);font-size:14px}.mapinfo .mix{margin-left:auto;background:none;border:0;color:var(--muted);font-size:26px;cursor:pointer;line-height:1}
+.mapinfo ul{columns:2;column-gap:40px}.mapinfo li{list-style:none;padding:7px 0;border-top:1px solid var(--line);break-inside:avoid;color:#d5dbe3;font-size:15px}
+.mapinfo li a{color:#fff}.mapinfo li .pill{font-size:11px;margin-left:6px}.mapinfo .mif{margin-top:16px}
+@media (max-width:700px){.mapinfo ul{columns:1}}
+.map svg g.dot.on circle{fill:#fff;fill-opacity:1;stroke:var(--blue);stroke-width:2}
+.map .dot:focus{outline:none}.map .dot:focus-visible circle{stroke:var(--blue2);stroke-width:2.5}

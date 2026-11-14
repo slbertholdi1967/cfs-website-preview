@@ -261,10 +261,12 @@ CITY = {  # approximate city centres (lat, lon) for the project map
     "Woodbridge, VA": (38.658, -77.250), "Westlake, TX": (32.991, -97.195), "Soddy Daisy, TN": (35.236, -85.191),
     "Oklahoma City, OK": (35.468, -97.516), "West Roxbury, MA": (42.279, -71.149), "Waltham, MA": (42.376, -71.236),
 }
+_HAND_CITIES = set(CITY)
 _CITIES_FILE = os.path.join(ROOT, "data/cities.json")  # filled by tools/import_content.py for new cities
 if os.path.exists(_CITIES_FILE):
     for _k, _v in json.load(open(_CITIES_FILE)).items():
-        CITY.setdefault(_k, tuple(_v))
+        if not _k.startswith("zip:"):
+            CITY.setdefault(_k, tuple(_v))
 HQ = (38.303, -77.461)  # Fredericksburg, VA
 
 
@@ -299,7 +301,7 @@ def us_paths():
             seg = arcs[i] if i >= 0 else arcs[~i][::-1]
             pts += seg if not pts else seg[1:]
         return "M" + "L".join(f"{x:.1f},{y:.1f}" for x, y in pts) + "Z"
-    states = {p["state"] for p in P}
+    states = {p["state"] for p in P} | {j["loc"].split(", ")[-1] for j in JOBS}
     out = []
     for g in t["objects"]["states"]["geometries"]:
         polys = g["arcs"] if g["type"] == "MultiPolygon" else [g["arcs"]]
@@ -309,27 +311,108 @@ def us_paths():
     return "".join(out)
 
 
-STATE_ABBR = {"District of Columbia": "DC", "Virginia": "VA", "Maryland": "MD", "West Virginia": "WV", "Delaware": "DE",
-              "Georgia": "GA", "Texas": "TX", "Tennessee": "TN", "Oklahoma": "OK", "Massachusetts": "MA"}
+STATE_ABBR = {n: c for c, n in [
+    ("AL", "Alabama"), ("AK", "Alaska"), ("AZ", "Arizona"), ("AR", "Arkansas"), ("CA", "California"), ("CO", "Colorado"),
+    ("CT", "Connecticut"), ("DE", "Delaware"), ("DC", "District of Columbia"), ("FL", "Florida"), ("GA", "Georgia"),
+    ("HI", "Hawaii"), ("ID", "Idaho"), ("IL", "Illinois"), ("IN", "Indiana"), ("IA", "Iowa"), ("KS", "Kansas"),
+    ("KY", "Kentucky"), ("LA", "Louisiana"), ("ME", "Maine"), ("MD", "Maryland"), ("MA", "Massachusetts"),
+    ("MI", "Michigan"), ("MN", "Minnesota"), ("MS", "Mississippi"), ("MO", "Missouri"), ("MT", "Montana"),
+    ("NE", "Nebraska"), ("NV", "Nevada"), ("NH", "New Hampshire"), ("NJ", "New Jersey"), ("NM", "New Mexico"),
+    ("NY", "New York"), ("NC", "North Carolina"), ("ND", "North Dakota"), ("OH", "Ohio"), ("OK", "Oklahoma"),
+    ("OR", "Oregon"), ("PA", "Pennsylvania"), ("RI", "Rhode Island"), ("SC", "South Carolina"), ("SD", "South Dakota"),
+    ("TN", "Tennessee"), ("TX", "Texas"), ("UT", "Utah"), ("VT", "Vermont"), ("VA", "Virginia"), ("WA", "Washington"),
+    ("WV", "West Virginia"), ("WI", "Wisconsin"), ("WY", "Wyoming")]}
+
+# Jobs map (owner 174b/175a/176): every CFS Job by city with its name only, sent by the database to
+# data/jobs-map.json (workflow publish-content.yml). Spelling fixes for city names typed in CFS Jobs:
+CITY_ALIAS = {
+    "Alexanderia, VA": "Alexandria, VA", "Chattnoga, TN": "Chattanooga, TN", "Waltahm, MA": "Waltham, MA",
+    "Wasington, DC": "Washington, DC", "Southwest, DC": "Washington, DC", "Mclean, VA": "McLean, VA",
+    "SpringField, VA": "Springfield, VA", "Soddy-Daisy, TN": "Soddy Daisy, TN",
+    "Huntington, PA": "Huntingdon, PA", "Greenville, VA": "Gainesville, VA",  # by their ZIP codes (16652, 20155)
+}
+
+
+# Trailing scope words of Job names ("Wardman Park ACM", "GMU Bending", "Old Dominion (ACM ONLY)"): the public name
+# is the place, not the scope (owner 177).
+_SCOPE = re.compile(r"(?:[\s(\-/]+(?:acm(?: only)?|bending|nichiha|atas|fabrication|sub|panels?|flashings?|hpl|fc|"
+                    r"fiber cement|metal|metals)\)?)+\s*$", re.I)
+
+
+def _words(t):
+    return re.findall(r"[a-z0-9]+", t.lower())
+
+
+def place_name(names):
+    """One public name for one or more Jobs at the same address: the common start of their names, scope removed."""
+    cores = [_SCOPE.sub("", n).strip(" -") or n for n in names]
+    if len(cores) == 1:
+        return cores[0]
+    toks = [re.split(r"(\s+|-)", c) for c in cores]
+    words = [[w for w in t if w.strip() and w != "-"] for t in toks]
+    common = []
+    for parts in zip(*words):
+        if len({w.lower() for w in parts}) == 1:
+            common.append(parts[0])
+        else:
+            break
+    return " ".join(common) if common else min(cores, key=len)
+
+
+def jobs_map():
+    """Jobs from data/jobs-map.json grouped by address code ("site"), one entry per place and city."""
+    from collections import OrderedDict
+    f = os.path.join(ROOT, "data/jobs-map.json")
+    groups = OrderedDict()
+    for j in (json.load(open(f, encoding="utf-8")) if os.path.exists(f) else []):
+        loc = f'{j["city"]}, {j["state"]}'
+        loc = CITY_ALIAS.get(loc, loc)
+        key = (loc, j.get("site") or "name:" + " ".join(_words(_SCOPE.sub("", j["name"]))))
+        g = groups.setdefault(key, {"names": [], "loc": loc, "zip": j.get("zip")})
+        g["names"].append(j["name"])
+        g["zip"] = g["zip"] or j.get("zip")
+    return [{"name": place_name(g["names"]), "loc": g["loc"], "zip": g["zip"]} for g in groups.values()]
+
+
+JOBS = jobs_map()
+# Job cities are placed by ZIP code when known (city names repeat across a state); hand-placed cities stay as they are.
+_ZIPS = json.load(open(_CITIES_FILE)) if os.path.exists(_CITIES_FILE) else {}
+for _j in JOBS:
+    if _j["loc"] not in _HAND_CITIES and _j["zip"] and f'zip:{_j["zip"]}' in _ZIPS:
+        CITY[_j["loc"]] = tuple(_ZIPS[f'zip:{_j["zip"]}'])
+
 
 
 def map_block():
     from collections import defaultdict
-    by = defaultdict(list)
+    by = defaultdict(lambda: {"jobs": [], "projects": []})
     for p in P:
-        by[p["loc"]].append(p)
+        by[p["loc"]]["projects"].append({"name": p["name"], "slug": p["slug"]})
+    def same_place(a, b):  # "Wardman Park" and "Wardman Park Redevelopment", "1200 Bladensburg" and "... Road"
+        wa, wb = _words(a), _words(b)
+        n = min(len(wa), len(wb))
+        return n > 0 and wa[:n] == wb[:n]
+    for j in JOBS:
+        v = by[j["loc"]]
+        if any(same_place(j["name"], q["name"]) for q in v["projects"]) or any(same_place(j["name"], x) for x in v["jobs"]):
+            continue
+        v["jobs"].append(j["name"])
+    count = lambda v: len(v["jobs"]) + len(v["projects"])
+    total = sum(count(v) for v in by.values())
+    states = {loc.split(", ")[-1] for loc in by}
     paths = us_paths()
     def dots(scale, labels, fs=1):
         out = []
-        for loc, ps in sorted(by.items(), key=lambda kv: -len(kv[1])):
+        for loc, v in sorted(by.items(), key=lambda kv: -count(kv[1])):
             if loc not in CITY:
-                continue  # no coordinates yet: the project is still listed, just not on the map
+                continue  # no coordinates yet: listed in the data, just not on the map
+            n = count(v)
             x, y = albers(*CITY[loc])
-            rad = (2.2 + 1.4 * len(ps) ** .5) * scale
-            names = ", ".join(q["name"] for q in ps)
-            out.append(f'<g class="dot" data-loc="{E(loc)}" tabindex="0" role="button" aria-label="{E(loc)}: {len(ps)} project(s)"><circle cx="{x:.1f}" cy="{y:.1f}" r="{rad:.2f}"/><title>{E(loc)} ({len(ps)}): {E(names)}</title></g>')
-            if labels and len(ps) >= 3:
-                out.append(f'<text x="{x + rad + 1.2 * scale:.1f}" y="{y + 1.2 * scale:.1f}" style="font-size:{fs:.2f}px">{E(loc.split(",")[0])} &middot; {len(ps)}</text>')
+            rad = (1.6 + 0.85 * n ** .5) * scale
+            cls = "dot ph" if v["projects"] else "dot"
+            out.append(f'<g class="{cls}" data-loc="{E(loc)}" tabindex="0" role="button" aria-label="{E(loc)}: {n} project(s)"><circle cx="{x:.1f}" cy="{y:.1f}" r="{rad:.2f}"/><title>{E(loc)}: {n} project{"s" if n > 1 else ""}</title></g>')
+            if labels and n >= 4:
+                out.append(f'<text x="{x + rad + 1.2 * scale:.1f}" y="{y + 1.2 * scale:.1f}" style="font-size:{fs:.2f}px">{E(loc.split(",")[0])} &middot; {n}</text>')
         hx, hy = albers(*HQ)
         out.append(f'<g class="hq"><rect x="{hx - 2.2 * scale:.1f}" y="{hy - 2.2 * scale:.1f}" width="{4.4 * scale:.1f}" height="{4.4 * scale:.1f}" transform="rotate(45 {hx:.1f} {hy:.1f})"/><title>CFS Designs US factory, Fredericksburg, VA</title></g>')
         if labels:
@@ -339,14 +422,17 @@ def map_block():
     x0, y0 = albers(39.62, -77.85); x1, y1 = albers(38.0, -76.35)
     zx, zy, zw, zh = x0, y0, x1 - x0, y1 - y0
     k = zw / 975
+    data = json.dumps({loc: v for loc, v in by.items()}, ensure_ascii=False).replace("</", "<\\/")
     return f"""<section class="mapsec"><div class="wrap">
   <div class="eyebrow">Where we have built</div>
-  <h2 style="font-size:40px">{len(P)} projects in {len(set(p["state"] for p in P))} states.</h2>
-  <p class="sub">Tap a city to see its projects.</p>
+  <h2 style="font-size:40px">{total} projects in {len(states)} states.</h2>
+  <p class="sub">Tap a city to see what we built there. Blue cities have projects with photos.</p>
   <div class="maps">
     <figure class="map"><svg viewBox="0 0 975 610" role="img" aria-label="Map of CFS projects in the United States"><g class="st">{paths}</g><rect class="zoombox" x="{zx:.1f}" y="{zy:.1f}" width="{zw:.1f}" height="{zh:.1f}"/>{dots(1, False)}</svg><figcaption>United States</figcaption></figure>
     <figure class="map"><svg viewBox="{zx:.1f} {zy:.1f} {zw:.1f} {zh:.1f}" role="img" aria-label="Map of CFS projects around Washington, DC"><g class="st" style="stroke-width:{.5 * k * 4:.2f}">{paths}</g>{dots(k * 2.6, True, k * 15)}</svg><figcaption>Washington, DC region</figcaption></figure>
   </div>
+  <div class="mapinfo" id="mapinfo" hidden aria-live="polite"></div>
+  <script type="application/json" id="mapdata">{data}</script>
 </div></section>"""
 
 

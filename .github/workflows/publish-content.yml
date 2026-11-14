@@ -1,11 +1,15 @@
 # Runs after every publish from CFS Core (Website projects): CFS Core commits content/projects.json and new original
 # photos; this job enhances the photos, rebuilds the pages and commits them. GitHub Pages then serves the result.
+# Also runs when the database sends the Jobs map (repository_dispatch "jobs-map": Job name, city, state, ZIP and an
+# address code only, owner decisions 174-177).
 name: Publish content from CFS Core
 
 on:
   push:
     branches: [main]
     paths: ["content/**"]
+  repository_dispatch:
+    types: [jobs-map]
   workflow_dispatch:
 
 permissions:
@@ -27,6 +31,26 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Save the Jobs map sent by the database
+        if: github.event_name == 'repository_dispatch'
+        env:
+          JOBS: ${{ toJson(github.event.client_payload.jobs) }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re
+          raw = json.loads(os.environ["JOBS"] or "[]")
+          keep = []
+          for j in raw if isinstance(raw, list) else []:
+              if not isinstance(j, dict):
+                  continue
+              row = {k: (str(j[k])[:160] if j.get(k) is not None else None) for k in ("name", "city", "state", "zip", "site")}
+              if row["name"] and row["city"] and row["state"] and re.fullmatch(r"[A-Z]{2}", row["state"]):
+                  keep.append(row)
+          with open("data/jobs-map.json", "w", encoding="utf-8") as f:
+              json.dump(keep, f, indent=1, ensure_ascii=False)
+              f.write("\n")
+          print("jobs on the map:", len(keep))
+          PY
       - name: Install photo tools
         run: pip install --quiet opencv-python-headless numpy pillow pillow-heif
       - name: Import projects from CFS Core

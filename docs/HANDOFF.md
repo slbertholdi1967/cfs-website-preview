@@ -6,7 +6,7 @@ Read this first in a new session. The owner's working style and golden rules are
 ## How to work with the owner (Sergio Bertholdi)
 
 - Chat in **Portuguese**; everything on the site is in **English**.
-- **Numbered questions with lettered options** (last number used: **171**; continue from 172). Answers come as "157=a".
+- **Numbered questions with lettered options** (last number used: **178**; continue from 179). Answers come as "157=a".
 - **One step at a time**, preview before building, **never invent facts** (no fake testimonials, cities, materials,
   systems or AI-made photos presented as CFS work). Be economical; warn before running several agents.
 - Commit and push after each change; the site redeploys by itself in about 1 minute.
@@ -75,6 +75,12 @@ Every page is `noindex`, `robots.txt` blocks everything, the footer says "Previe
    `publish-content.yml`. Pending: owner applies 1-line SQL (admin gets website.publish), creates the GitHub token
    (fine-grained, this repo, Contents read/write) and saves it in Lovable as secret WEBSITE_GITHUB_TOKEN, publishes
    Core in Lovable, then we test one publish together. Brochure PDF is not rebuilt by the workflow (run by hand).
+9. **Jobs map** (174b, 175a, 176, 177, 178a): Portfolio map shows every CFS Job by city with its name only (no
+   customer/address); own-branding customers (STO Corp) and Jobs with pt_job_logos are excluded. Jobs at the same
+   address are one place (address code "site"), scope words removed ("Wardman Park ACM"+"Bending" = "Wardman Park"),
+   and a Job matching a portfolio project in the same city is shown as that project. The database sends the list
+   (repository_dispatch "jobs-map", key in Supabase Vault "website_github_token") when Jobs change, nightly too;
+   workflow writes data/jobs-map.json. City typos fixed in build.py CITY_ALIAS; dots placed by ZIP (data/cities.json).
 8. **At go-live** (owner, Nov 14): set `PREVIEW = False` in build.py, so the footer reads "Developed by Sergio
    Bertholdi" instead of "Preview of the new website - not public"; also remove noindex and open robots.txt.
 6. Owner may tick **Enforce HTTPS** in GitHub > Settings > Pages (certificate is issued).

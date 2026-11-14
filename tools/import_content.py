@@ -5,7 +5,8 @@ Run by .github/workflows/publish-content.yml after every publish from CFS Core, 
 - New original photos are enhanced (tools/enhance_photos.py) into img/projects/<slug>/<name>.jpg and full/<name>.jpg.
 - data/projects.json is rewritten in portfolio order, with sector and CFS system.
 - The portfolio card (img/thumbs/<slug>.jpg) is made again when the cover photo changes.
-- New cities get map coordinates (OpenStreetMap Nominatim, cached in data/cities.json).
+- New cities (portfolio and the Jobs map, data/jobs-map.json) get map coordinates (OpenStreetMap Nominatim,
+  cached in data/cities.json).
 - Pages of projects taken off the website are removed.
 Run: python3 tools/import_content.py
 """
@@ -58,7 +59,10 @@ def thumb(slug, cover):
 
 
 def geocode(loc):
-    q = urllib.parse.urlencode({"q": f"{loc}, USA", "format": "json", "limit": 1, "countrycodes": "us"})
+    if loc.startswith("zip:"):
+        q = urllib.parse.urlencode({"postalcode": loc[4:], "country": "us", "format": "json", "limit": 1})
+    else:
+        q = urllib.parse.urlencode({"q": f"{loc}, USA", "format": "json", "limit": 1, "countrycodes": "us"})
     req = urllib.request.Request(f"https://nominatim.openstreetmap.org/search?{q}", headers={"User-Agent": "cfs-website-build/1.0"})
     with urllib.request.urlopen(req, timeout=20) as r:
         res = json.load(r)
@@ -67,9 +71,14 @@ def geocode(loc):
 
 
 def main():
-    if not os.path.exists(CONTENT):
-        print("no content/projects.json: nothing to import")
-        return
+    if os.path.exists(CONTENT):
+        import_projects()
+    else:
+        print("no content/projects.json: projects unchanged")
+    geocode_all()
+
+
+def import_projects():
     content = load(CONTENT, [])
     old = {p["slug"]: p for p in load(DATA, [])}
     thumbs = load(THUMBS, {s: p["files"][0] for s, p in old.items() if p.get("files")})
@@ -99,10 +108,21 @@ def main():
     save(DATA, out)
     save(THUMBS, {p["slug"]: thumbs[p["slug"]] for p in out if p["slug"] in thumbs})
 
-    import build  # noqa: E402  (reads data/projects.json at import)
+    keep = {p["slug"] for p in out}
+    for f in os.listdir(rel("projects")):
+        if f.endswith(".html") and f[:-5] not in keep:
+            os.remove(rel("projects", f))
+            print("removed page", f)
+    print(f"imported {len(out)} projects")
+
+
+def geocode_all():
+    """Map coordinates for every portfolio and Job city that has none yet."""
+    import build  # noqa: E402  (reads data/projects.json and data/jobs-map.json at import)
     cities = load(CITIES, {})
-    for loc in sorted({p["loc"] for p in out}):
-        if loc in build.CITY or loc in cities:
+    wanted = {p["loc"] for p in build.P} | {j["loc"] for j in build.JOBS} | {f'zip:{j["zip"]}' for j in build.JOBS if j["zip"]}
+    for loc in sorted(wanted):
+        if loc in cities or (not loc.startswith("zip:") and loc in build._HAND_CITIES):
             continue
         try:
             ll = geocode(loc)
@@ -112,13 +132,6 @@ def main():
         except Exception as e:
             print("WARNING geocode", loc, e)
     save(CITIES, cities)
-
-    keep = {p["slug"] for p in out}
-    for f in os.listdir(rel("projects")):
-        if f.endswith(".html") and f[:-5] not in keep:
-            os.remove(rel("projects", f))
-            print("removed page", f)
-    print(f"imported {len(out)} projects")
 
 
 if __name__ == "__main__":
