@@ -6,7 +6,7 @@ Read this first in a new session. The owner's working style and golden rules are
 ## How to work with the owner (Sergio Bertholdi)
 
 - Chat in **Portuguese**; everything on the site is in **English**.
-- **Numbered questions with lettered options** (last number used: **156**; continue from 157). Answers come as "157=a".
+- **Numbered questions with lettered options** (last number used: **166**; continue from 167). Answers come as "157=a".
 - **One step at a time**, preview before building, **never invent facts** (no fake testimonials, cities, materials,
   systems or AI-made photos presented as CFS work). Be economical; warn before running several agents.
 - Commit and push after each change; the site redeploys by itself in about 1 minute.
@@ -55,4 +55,11 @@ Every page is `noindex`, `robots.txt` blocks everything, the footer says "Previe
 3. `docs/CFS_Projects_Systems.xlsx`: owner will fill in the CFS system used in each project; then show the system on
    each project page and the projects on each system page.
 4. Question **154** (shot list PDF for the photographer: now / after board approval / no) not answered yet.
-5. Owner may tick **Enforce HTTPS** in GitHub > Settings > Pages (certificate is issued).
+5. Competitor review done (Nov 14): CEI and ECMS offer free downloads (CSI specs, details, data sheets, warranties,
+   color charts; CEI names its tests: ASTM E283/E330/E331, AAMA 501.1/508, NFPA 285, Florida approval). Owner sent Mark an
+   email (157) asking for the CFS documents and test standards, which services CFS offers (3D scanning, BIM, estimating,
+   PM, installation) and any factory certifications. **Downloads page (158a): build when Mark's files arrive.**
+   Done: LinkedIn link in footer (160a, linkedin.com/company/33312311); Careers page with Sales Representatives and
+   link to LinkedIn openings (161b, 166b). No News page, no leadership page (162b). Still to propose: audience paths,
+   sustainability, samples, project map, FAQ, real testimonials, PDF brochure (164 not answered).
+6. Owner may tick **Enforce HTTPS** in GitHub > Settings > Pages (certificate is issued).
