@@ -99,6 +99,19 @@ SERVICES = [
 BRANDS = ["Alucobond", "Alpolic", "Reynobond", "Alfrex", "Equitone", "Nichiha", "Fundermax", "Rockany", "ATAS", "Englert", "Imetco", "Majestic Steel", "SAF", "SFS"]
 
 
+PATHS = [
+    ("For architects &amp; engineers", "Specify with confidence.", [("CFS rainscreen systems", "systems.html"), ("Testing reports", "materials.html#reports"), ("Materials and brands", "materials.html")]),
+    ("For general contractors", "Clear quotes, on schedule.", [("Request a quote", "contact.html"), ("Projects we have built", "portfolio.html"), ("Live delivery tracking", "tracking.html")]),
+    ("For installers", "Every pallet, accounted for.", [("Track your pallets", "tracking.html"), ("Flashing &amp; bending", "services.html#bending"), ("System details", "systems.html")]),
+]
+
+
+def paths_block():
+    cols = "".join(f'<div class="path rv"><div class="eyebrow">{a}</div><h3>{b}</h3><ul>' + "".join(f'<li><a href="{h}">{t} <span>&rarr;</span></a></li>' for t, h in links) + '</ul></div>'
+                   for a, b, links in PATHS)
+    return f'<section class="paths-s"><div class="wrap"><h2 class="rv" style="font-size:40px">What are you looking for?</h2><div class="paths">{cols}</div></div></section>'
+
+
 def home():
     r = ""
     feat = "".join(pcard(BY[s], r, i == 0) for i, s in enumerate(FEATURED[:5]))
@@ -126,6 +139,7 @@ def home():
   <div class="stat"><b data-count="100" data-suffix="+">100+</b><span>years of combined expertise</span></div>
   <div class="stat"><b data-count="{len(P)}" data-suffix="">{len(P)}</b><span>featured projects, {len(set(p["state"] for p in P))} states</span></div>
 </div></div>
+{paths_block()}
 <section><div class="wrap">
   <div class="eyebrow rv">One-stop shop</div>
   <h2 class="rv">Everything your facade needs, under one roof.</h2>
