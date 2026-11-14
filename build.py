@@ -61,7 +61,7 @@ def page(path, title, body, desc="", active=""):
 <footer><div class="wrap">
   <div><a href="{r}index.html" aria-label="CFS Designs US home"><img src="{r}img/site/logo-light.png" alt="CFS Designs US"></a><p>Your one-stop shop for rainscreen facades.<br>5109 Commonwealth Dr<br>Fredericksburg, VA 22407</p><p style="margin-top:14px">Member of MCA &middot; RAINA</p><a class="social" href="https://www.linkedin.com/company/33312311/" target="_blank" rel="noopener" aria-label="CFS Designs US on LinkedIn"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>LinkedIn</a></div>
   <div><h6>Services</h6><ul><li><a href="{r}services.html#drawings">Shop Drawings</a></li><li><a href="{r}services.html#engineering">Engineering &amp; Design</a></li><li><a href="{r}services.html#fabrication">Fabrication</a></li><li><a href="{r}services.html#subconstruction">Subconstruction</a></li><li><a href="{r}services.html#bending">Flashing &amp; Bending</a></li><li><a href="{r}services.html#distribution">Distribution</a></li></ul></div>
-  <div><h6>Company</h6><ul><li><a href="{r}about.html">About us</a></li><li><a href="{r}portfolio.html">Portfolio</a></li><li><a href="{r}materials.html">Materials</a></li><li><a href="{r}systems.html">CFS Systems</a></li></ul></div>
+  <div><h6>Company</h6><ul><li><a href="{r}about.html">About us</a></li><li><a href="{r}portfolio.html">Portfolio</a></li><li><a href="{r}materials.html">Materials</a></li><li><a href="{r}systems.html">CFS Systems</a></li><li><a href="{r}careers.html">Careers</a></li></ul></div>
   <div><h6>Contact</h6><ul><li><a href="tel:+15404248623">(540) 424-8623</a></li><li><a href="mailto:info@cfsdesignsus.com">info@cfsdesignsus.com</a></li><li>Mon&ndash;Fri 7:00 am&ndash;3:30 pm</li><li><a href="{r}tracking.html">Track a delivery</a></li></ul></div>
 </div>
 <div class="wrap legal"><span>&copy; 2026 CFS Designs US</span><span class="prev">Preview of the new website &middot; not public</span></div>
@@ -463,8 +463,30 @@ def systems():
     write("systems.html", page("systems.html", "CFS Systems | CFS Designs US", body, active="systems.html"))
 
 
+def careers():
+    r = ""
+    jobs = "https://www.linkedin.com/company/33312311/jobs/"
+    body = f"""
+<header class="phead" style="background-image:url(img/site/factory.jpg)"><div class="wrap">
+  <div class="eyebrow">Careers</div><h1>Join the team.</h1>
+  <p class="lead">We are growing. Help us build the East Coast's facades, from drawing to delivery.</p>
+</div></header>
+<section><div class="wrap about">
+  <div>
+    <div class="eyebrow">Now hiring</div>
+    <h2 style="margin:10px 0 18px">Sales Representatives</h2>
+    <p class="story">We are looking for new sales professionals to bring CFS rainscreen facades to architects, general contractors and installers.</p>
+    <p class="sub" style="margin-top:22px">You will work with a team of engineers, architects and draftsmen with over 100 years of combined construction expertise, backed by our 100,000 square foot facility in Fredericksburg, Virginia.</p>
+    <p style="margin-top:30px"><a class="btn btn-blue" href="{jobs}" target="_blank" rel="noopener">See our openings on LinkedIn &rarr;</a></p>
+  </div>
+  <div class="aimg" style="background-image:url(img/site/drawings.jpg)"></div>
+</div></section>
+"""
+    write("careers.html", page("careers.html", "Careers | CFS Designs US", body, active="careers.html"))
+
+
 if __name__ == "__main__":
-    home(); portfolio(); services(); systems(); materials(); tracking(); about(); contact()
+    home(); portfolio(); services(); systems(); materials(); tracking(); about(); contact(); careers()
     for i, p in enumerate(P):
         project(i, p)
-    print("built", 8 + len(P), "pages")
+    print("built", 9 + len(P), "pages")
