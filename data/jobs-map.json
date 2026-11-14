@@ -1,919 +1,414 @@
 [
  {
-  "zip": "20032",
-  "city": "Southwest",
-  "name": "Leckie Education Campus Addition",
-  "site": "7936d8a236",
-  "state": "DC"
+  "loc": "Washington, DC",
+  "zip": "20019"
  },
  {
-  "zip": "20002",
-  "city": "Washington",
-  "name": "1200 Bladensburg Road",
-  "site": "9fff921401",
-  "state": "DC"
+  "loc": "Washington, DC",
+  "zip": "20006"
  },
  {
-  "zip": "20019",
-  "city": "Washington",
-  "name": "Benning Road ACM",
-  "site": "54728df353",
-  "state": "DC"
+  "loc": "Washington, DC",
+  "zip": "20017"
  },
  {
-  "zip": "20019",
-  "city": "Washington",
-  "name": "Benning Road NICHIHA",
-  "site": "54728df353",
-  "state": "DC"
+  "loc": "Washington, DC",
+  "zip": null
  },
  {
-  "zip": "20006",
-  "city": "Washington",
-  "name": "DAR Bending",
-  "site": "587cf7ab3c",
-  "state": "DC"
+  "loc": "Washington, DC",
+  "zip": null
  },
  {
-  "zip": "20017",
-  "city": "Washington",
-  "name": "DC Prep Edgewood Campus",
-  "site": "85b607f382",
-  "state": "DC"
+  "loc": "Washington, DC",
+  "zip": "20001"
  },
  {
-  "zip": "20017",
-  "city": "Washington",
-  "name": "Edgewood Commons V",
-  "site": "5dc162681d",
-  "state": "DC"
+  "loc": "Washington, DC",
+  "zip": "20001"
  },
  {
-  "zip": null,
-  "city": "Washington",
-  "name": "Harvard Court Apartments",
-  "site": "4588c14a30",
-  "state": "DC"
+  "loc": "Washington, DC",
+  "zip": "20032"
  },
  {
-  "zip": "20001",
-  "city": "Washington",
-  "name": "Howard University-East Tower",
-  "site": "39f61be78e",
-  "state": "DC"
+  "loc": "Washington, DC",
+  "zip": "20002"
  },
  {
-  "zip": "20001",
-  "city": "Washington",
-  "name": "Langston Apartments Bending",
-  "site": "273e684856",
-  "state": "DC"
+  "loc": "Washington, DC",
+  "zip": "20017"
  },
  {
-  "zip": "20002",
-  "city": "Washington",
-  "name": "Ludlow Taylor Elem. School",
-  "site": "6679279bce",
-  "state": "DC"
+  "loc": "Washington, DC",
+  "zip": null
  },
  {
-  "zip": "20017",
-  "city": "Washington",
-  "name": "MVCO Charter School",
-  "site": "145f5390f2",
-  "state": "DC"
+  "loc": "Washington, DC",
+  "zip": "20001"
  },
  {
-  "zip": null,
-  "city": "Washington",
-  "name": "New York Laureate Bending",
-  "site": "c2002d9277",
-  "state": "DC"
+  "loc": "Washington, DC",
+  "zip": "20016"
  },
  {
-  "zip": "20001",
-  "city": "Washington",
-  "name": "NorthWest One Phase 2",
-  "site": "59be03559b",
-  "state": "DC"
+  "loc": "Washington, DC",
+  "zip": "20301"
  },
  {
-  "zip": "20016",
-  "city": "Washington",
-  "name": "Sidwell Upper School ACM",
-  "site": "95bf74b519",
-  "state": "DC"
+  "loc": "Dover, DE",
+  "zip": "19901"
  },
  {
-  "zip": "20008",
-  "city": "Washington",
-  "name": "Wardman Park ACM",
-  "site": "36706c5882",
-  "state": "DC"
+  "loc": "Millsboro, DE",
+  "zip": "19966"
  },
  {
-  "zip": "20008",
-  "city": "Washington",
-  "name": "Wardman Park Bending",
-  "site": "36706c5882",
-  "state": "DC"
+  "loc": "Fort Lauderdale, FL",
+  "zip": "33308"
  },
  {
-  "zip": "20301",
-  "city": "Washington",
-  "name": "WHS-Pentagon",
-  "site": "5a7d59b114",
-  "state": "DC"
+  "loc": "Sarasota, FL",
+  "zip": "34236"
  },
  {
-  "zip": "20018",
-  "city": "Washington",
-  "name": "WMATA Bending",
-  "site": "8cd59d973c",
-  "state": "DC"
+  "loc": "Spring Hill, FL",
+  "zip": "34069"
  },
  {
-  "zip": null,
-  "city": "Wasington",
-  "name": "Food & Friends ACM",
-  "site": "2b6ceb2d5a",
-  "state": "DC"
+  "loc": "Atlanta, GA",
+  "zip": "30331"
  },
  {
-  "zip": "20009",
-  "city": "Wasington",
-  "name": "Harvard Court Apartments",
-  "site": "1c8eda1a57",
-  "state": "DC"
+  "loc": "Trenton, GA",
+  "zip": "37412"
  },
  {
-  "zip": "19901",
-  "city": "Dover",
-  "name": "DSU-ECIC",
-  "site": "b03d84c9c4",
-  "state": "DE"
+  "loc": "Boston, MA",
+  "zip": "02127"
  },
  {
-  "zip": "19966",
-  "city": "Millsboro",
-  "name": "Tidal Health - Millsboro",
-  "site": "fc7eee529d",
-  "state": "DE"
+  "loc": "Waltham, MA",
+  "zip": "02451"
  },
  {
-  "zip": "19966",
-  "city": "Millsboro",
-  "name": "Tidal Health Bending",
-  "site": "fc7eee529d",
-  "state": "DE"
+  "loc": "Baltimore, MD",
+  "zip": "21226"
  },
  {
-  "zip": "33308",
-  "city": "Fort Lauderdale",
-  "name": "EL CarWash Coral Ridge",
-  "site": "f468924e39",
-  "state": "FL"
+  "loc": "Baltimore, MD",
+  "zip": "21205"
  },
  {
-  "zip": "34236",
-  "city": "Sarasota",
-  "name": "Mavis Tire ATAS #2349 - Sarasota",
-  "site": "80aa784125",
-  "state": "FL"
+  "loc": "Baltimore, MD",
+  "zip": null
  },
  {
-  "zip": "34069",
-  "city": "Spring Hill",
-  "name": "Mavis Tires #2145 - Spring Hill",
-  "site": "8690d9eaa3",
-  "state": "FL"
+  "loc": "Baltimore, MD",
+  "zip": "21239"
  },
  {
-  "zip": "30331",
-  "city": "Atlanta",
-  "name": "Sto Fiber Cement #2 Showroom",
-  "site": "19203f9ecf",
-  "state": "GA"
+  "loc": "Baltimore, MD",
+  "zip": "21201"
  },
  {
-  "zip": "30752",
-  "city": "Trenton",
-  "name": "Oven Addition",
-  "site": "9f733137f7",
-  "state": "GA"
+  "loc": "Baltimore, MD",
+  "zip": "21201"
  },
  {
-  "zip": "37412",
-  "city": "Trenton",
-  "name": "Oven Addition ACM Phase 2",
-  "site": "7b85657a3e",
-  "state": "GA"
+  "loc": "Beltsville, MD",
+  "zip": "20705"
  },
  {
-  "zip": "02127",
-  "city": "Boston",
-  "name": "295 West 1ST Street",
-  "site": "3deed02c5a",
-  "state": "MA"
+  "loc": "Bethesda, MD",
+  "zip": "20814"
  },
  {
-  "zip": "02451",
-  "city": "Waltahm",
-  "name": "1265 Retail-Main Street",
-  "site": "3ef8fa9367",
-  "state": "MA"
+  "loc": "District Heights, MD",
+  "zip": "20747"
  },
  {
-  "zip": null,
-  "city": "West Roxbury",
-  "name": "400 Belgrade ACM",
-  "site": "3a81c443b0",
-  "state": "MA"
+  "loc": "Frederick, MD",
+  "zip": null
  },
  {
-  "zip": "21226",
-  "city": "Baltimore",
-  "name": "Hard Rock",
-  "site": "087e661535",
-  "state": "MD"
+  "loc": "Gaithersburg, MD",
+  "zip": "20878"
  },
  {
-  "zip": "21205",
-  "city": "Baltimore",
-  "name": "JHHS CMSC Reno & N Tower",
-  "site": "861458aa99",
-  "state": "MD"
+  "loc": "Hyattsville, MD",
+  "zip": "20782"
  },
  {
-  "zip": null,
-  "city": "Baltimore",
-  "name": "JHU Life Science-Bending",
-  "site": "aff746c120",
-  "state": "MD"
+  "loc": "Laurel, MD",
+  "zip": "20723"
  },
  {
-  "zip": "21239",
-  "city": "Baltimore",
-  "name": "MSU O'Connell Hall",
-  "site": "e1b3c80db8",
-  "state": "MD"
+  "loc": "Laurel, MD",
+  "zip": "20723"
  },
  {
-  "zip": "21201",
-  "city": "Baltimore",
-  "name": "UMB School Of Social Work",
-  "site": "4413dc2fb3",
-  "state": "MD"
+  "loc": "Montgomery Village, MD",
+  "zip": "20886"
  },
  {
-  "zip": "21201",
-  "city": "Baltimore",
-  "name": "UMMC",
-  "site": "a044384eee",
-  "state": "MD"
+  "loc": "North Bethesda, MD",
+  "zip": "20852"
  },
  {
-  "zip": "20705",
-  "city": "Beltsville",
-  "name": "North Bethesda Parcel H ACM",
-  "site": "2e328adff1",
-  "state": "MD"
+  "loc": "Randallstown, MD",
+  "zip": "21133"
  },
  {
-  "zip": "20814",
-  "city": "Bethesda",
-  "name": "7607 Old Georgetown Road",
-  "site": "275320c42e",
-  "state": "MD"
+  "loc": "Rockville, MD",
+  "zip": "20850"
  },
  {
-  "zip": "20814",
-  "city": "Bethesda",
-  "name": "Citi Bank",
-  "site": "0d3c79402f",
-  "state": "MD"
+  "loc": "Silver Spring, MD",
+  "zip": "20903"
  },
  {
-  "zip": "20747",
-  "city": "District Heights",
-  "name": "Suitland High School",
-  "site": "07593b2b83",
-  "state": "MD"
+  "loc": "Towson, MD",
+  "zip": "21204"
  },
  {
-  "zip": null,
-  "city": "Frederick",
-  "name": "ADC - IAD08 ACM",
-  "site": "f27fce0bfc",
-  "state": "MD"
+  "loc": "Durham, NC",
+  "zip": "27703"
  },
  {
-  "zip": "20878",
-  "city": "Gaithersburg",
-  "name": "Space 42 Split",
-  "site": "42bd530259",
-  "state": "MD"
+  "loc": "Raleigh, NC",
+  "zip": "27601"
  },
  {
-  "zip": "20782",
-  "city": "Hyattsville",
-  "name": "7-Elevan",
-  "site": "b8fac82354",
-  "state": "MD"
+  "loc": "Portsmouth, NH",
+  "zip": "03801"
  },
  {
-  "zip": "20782",
-  "city": "Hyattsville",
-  "name": "Toledo Road",
-  "site": "77cac313d9",
-  "state": "MD"
+  "loc": "Norman, OK",
+  "zip": null
  },
  {
-  "zip": "20723",
-  "city": "Laurel",
-  "name": "John Hopkins APL B2",
-  "site": "812c351b6d",
-  "state": "MD"
+  "loc": "Allegheny Township, PA",
+  "zip": "16601"
  },
  {
-  "zip": "20723",
-  "city": "Laurel",
-  "name": "Johns Hopkins Building 2",
-  "site": "e97a110ac7",
-  "state": "MD"
+  "loc": "Huntingdon, PA",
+  "zip": "16652"
  },
  {
-  "zip": "20886",
-  "city": "Montgomery Village",
-  "name": "Herons Cave ACM Mockup",
-  "site": "68b4020ca3",
-  "state": "MD"
+  "loc": "Kiawah Island, SC",
+  "zip": "29455"
  },
  {
-  "zip": "20852",
-  "city": "North Bethesda",
-  "name": "North Bethesda Parcel H Bending",
-  "site": "d009b1c9a5",
-  "state": "MD"
+  "loc": "North Charleston, SC",
+  "zip": "29405"
  },
  {
-  "zip": "21133",
-  "city": "Randallstown",
-  "name": "LBH NW Hospital",
-  "site": "3da06ff450",
-  "state": "MD"
+  "loc": "Chattanooga, TN",
+  "zip": "37405"
  },
  {
-  "zip": "20850",
-  "city": "Rockville",
-  "name": "Shady Grove Bending",
-  "site": "33fbc86782",
-  "state": "MD"
+  "loc": "Chattanooga, TN",
+  "zip": "37404"
  },
  {
-  "zip": "20903",
-  "city": "Silver Spring",
-  "name": "Hillandale Bending",
-  "site": "5b4059c1b0",
-  "state": "MD"
+  "loc": "Dallas, TX",
+  "zip": "75225"
  },
  {
-  "zip": "21204",
-  "city": "Towson",
-  "name": "Pickersgill Phase 3",
-  "site": "7acf963873",
-  "state": "MD"
+  "loc": "Galveston, TX",
+  "zip": null
  },
  {
-  "zip": "27703",
-  "city": "Durham",
-  "name": "Mavis Tire #2253",
-  "site": "4bd76b78c9",
-  "state": "NC"
+  "loc": "Houston, TX",
+  "zip": "77084"
  },
  {
-  "zip": "27601",
-  "city": "Raleigh",
-  "name": "521 Wilmington St",
-  "site": "6ebc8fa153",
-  "state": "NC"
+  "loc": "Houston, TX",
+  "zip": "77056"
  },
  {
-  "zip": "03801",
-  "city": "Portsmouth",
-  "name": "Prescott",
-  "site": "9d316191f0",
-  "state": "NH"
+  "loc": "Houston, TX",
+  "zip": "77026"
  },
  {
-  "zip": null,
-  "city": "Norman",
-  "name": "Armstrong Bank-Norman OK",
-  "site": "d503dd87af",
-  "state": "OK"
+  "loc": "Houston, TX",
+  "zip": null
  },
  {
-  "zip": null,
-  "city": "Oklahoma City",
-  "name": "Armstrong Bank",
-  "site": "1bd9cff614",
-  "state": "OK"
+  "loc": "Westlake, TX",
+  "zip": "76262"
  },
  {
-  "zip": "16601",
-  "city": "Allegheny Township",
-  "name": "CCA Altoona",
-  "site": "ff0726d2cb",
-  "state": "PA"
+  "loc": "Alexandria, VA",
+  "zip": "22314"
  },
  {
-  "zip": "16652",
-  "city": "Huntington",
-  "name": "Juanita College Gateway",
-  "site": "5be2d743d4",
-  "state": "PA"
+  "loc": "Alexandria, VA",
+  "zip": null
  },
  {
-  "zip": "29455",
-  "city": "Kiawah Island",
-  "name": "KOC Residence 372 Helena Court",
-  "site": "2f70b7c30e",
-  "state": "SC"
+  "loc": "Alexandria, VA",
+  "zip": "22304"
  },
  {
-  "zip": "29405",
-  "city": "North Charleston",
-  "name": "John Island ACM",
-  "site": "5e657fd913",
-  "state": "SC"
+  "loc": "Alexandria, VA",
+  "zip": "22312"
  },
  {
-  "zip": "37404",
-  "city": "Chattanooga",
-  "name": "Juvenile Court Addition",
-  "site": "6172889d1e",
-  "state": "TN"
+  "loc": "Alexandria, VA",
+  "zip": "22134"
  },
  {
-  "zip": "37405",
-  "city": "Chattnoga",
-  "name": "Cadas Women's Center",
-  "site": "2345c8e72f",
-  "state": "TN"
+  "loc": "Arlington, VA",
+  "zip": "22201"
  },
  {
-  "zip": "37379",
-  "city": "Soddy-Daisy",
-  "name": "TCAT Chattanooga",
-  "site": "1d18fc34c0",
-  "state": "TN"
+  "loc": "Blacksburg, VA",
+  "zip": "24060"
  },
  {
-  "zip": "75225",
-  "city": "Dallas",
-  "name": "8300 Douglas",
-  "site": "e697d28a23",
-  "state": "TX"
+  "loc": "Chantilly, VA",
+  "zip": "20151"
  },
  {
-  "zip": null,
-  "city": "Galveston",
-  "name": "UTMB JOC",
-  "site": "fb207e9e1c",
-  "state": "TX"
+  "loc": "Chantilly, VA",
+  "zip": "20151"
  },
  {
-  "zip": "77084",
-  "city": "Houston",
-  "name": "ARAMCO HRC3",
-  "site": "106b96a5ef",
-  "state": "TX"
+  "loc": "Charlottesville, VA",
+  "zip": "22902"
  },
  {
-  "zip": "77056",
-  "city": "Houston",
-  "name": "Central Park ACM",
-  "site": "f4cebba4db",
-  "state": "TX"
+  "loc": "Chesterfield, VA",
+  "zip": "23832"
  },
  {
-  "zip": "77026",
-  "city": "Houston",
-  "name": "LBJ Hospital Expansion",
-  "site": "bda6fbd006",
-  "state": "TX"
+  "loc": "Fairfax, VA",
+  "zip": "22030"
  },
  {
-  "zip": null,
-  "city": "Houston",
-  "name": "Rice University Moody Cntr ACM",
-  "site": "2c31c18385",
-  "state": "TX"
+  "loc": "Fairfax, VA",
+  "zip": "22182"
  },
  {
-  "zip": null,
-  "city": "Houston",
-  "name": "Rice University-Cascadia Sub",
-  "site": "2c31c18385",
-  "state": "TX"
+  "loc": "Falls Church, VA",
+  "zip": "22042"
  },
  {
-  "zip": "76262",
-  "city": "Westlake",
-  "name": "Project Star NW1",
-  "site": "d4ecf60a40",
-  "state": "TX"
+  "loc": "Falls Church, VA",
+  "zip": "22044"
  },
  {
-  "zip": "22312",
-  "city": "Alexanderia",
-  "name": "Pillar Monthly Storage",
-  "site": "8205e6943f",
-  "state": "VA"
+  "loc": "Falls Church, VA",
+  "zip": "22046"
  },
  {
-  "zip": "22314",
-  "city": "Alexandria",
-  "name": "801 N Fairfax St",
-  "site": "3ed7482837",
-  "state": "VA"
+  "loc": "Gainesville, VA",
+  "zip": "20155"
  },
  {
-  "zip": "22312",
-  "city": "Alexandria",
-  "name": "Flavor Hive ACM",
-  "site": "640969f59f",
-  "state": "VA"
+  "loc": "Gainesville, VA",
+  "zip": "20155"
  },
  {
-  "zip": null,
-  "city": "Alexandria",
-  "name": "Kleinburg-Cohen",
-  "site": "b656abe85e",
-  "state": "VA"
+  "loc": "Hampton, VA",
+  "zip": "22044"
  },
  {
-  "zip": "22304",
-  "city": "Alexandria",
-  "name": "Landmark Building E and G P1",
-  "site": "e998112e96",
-  "state": "VA"
+  "loc": "Herndon, VA",
+  "zip": "20171"
  },
  {
-  "zip": "22304",
-  "city": "Alexandria",
-  "name": "Landmark Building Pavilion #2",
-  "site": "e998112e96",
-  "state": "VA"
+  "loc": "McLean, VA",
+  "zip": "22101"
  },
  {
-  "zip": "22134",
-  "city": "Alexandria",
-  "name": "The Mansly",
-  "site": "11975ead52",
-  "state": "VA"
+  "loc": "Newport News, VA",
+  "zip": null
  },
  {
-  "zip": "22314",
-  "city": "Alexandria",
-  "name": "Tidelock Bending",
-  "site": "fe5b0c5c72",
-  "state": "VA"
+  "loc": "Nokesville, VA",
+  "zip": "20189"
  },
  {
-  "zip": "22314",
-  "city": "Alexandria",
-  "name": "Tidelock Fabrication",
-  "site": "fe5b0c5c72",
-  "state": "VA"
+  "loc": "Norfolk, VA",
+  "zip": "23510"
  },
  {
-  "zip": "22201",
-  "city": "Arlington",
-  "name": "3033 Wilson Blvd",
-  "site": "b9fae87b97",
-  "state": "VA"
+  "loc": "Norfolk, VA",
+  "zip": null
  },
  {
-  "zip": "22201",
-  "city": "Arlington",
-  "name": "GMU ACM",
-  "site": "1913338d68",
-  "state": "VA"
+  "loc": "Portsmouth, VA",
+  "zip": "23704"
  },
  {
-  "zip": "22201",
-  "city": "Arlington",
-  "name": "GMU ATAS",
-  "site": "1913338d68",
-  "state": "VA"
+  "loc": "Quantico, VA",
+  "zip": "22134"
  },
  {
-  "zip": "22201",
-  "city": "Arlington",
-  "name": "GMU Bending",
-  "site": "1913338d68",
-  "state": "VA"
+  "loc": "Reston, VA",
+  "zip": "20190"
  },
  {
-  "zip": "24060",
-  "city": "Blacksburg",
-  "name": "VT Hancock Hall ACM",
-  "site": "9af72906ee",
-  "state": "VA"
+  "loc": "Richmond, VA",
+  "zip": "23228"
  },
  {
-  "zip": "20151",
-  "city": "Chantilly",
-  "name": "Courtyard Chantilly Dullas Airport",
-  "site": "fe9726a416",
-  "state": "VA"
+  "loc": "Smithfield, VA",
+  "zip": "23430"
  },
  {
-  "zip": "20151",
-  "city": "Chantilly",
-  "name": "Woodleigh Chase RB1.4",
-  "site": "6bb956094c",
-  "state": "VA"
+  "loc": "Springfield, VA",
+  "zip": "22153"
  },
  {
-  "zip": "22902",
-  "city": "Charlottesville",
-  "name": "Code Building",
-  "site": "4a670422ab",
-  "state": "VA"
+  "loc": "Stafford, VA",
+  "zip": "22554"
  },
  {
-  "zip": "23832",
-  "city": "Chesterfield",
-  "name": "Lego - Cascadia Subframing",
-  "site": "7ec5621396",
-  "state": "VA"
+  "loc": "Sterling, VA",
+  "zip": "20116"
  },
  {
-  "zip": "22030",
-  "city": "Fairfax",
-  "name": "Brightview Fairfax City Bending",
-  "site": "e6f6bdf428",
-  "state": "VA"
+  "loc": "Sterling, VA",
+  "zip": "20166"
  },
  {
-  "zip": "22182",
-  "city": "Fairfax",
-  "name": "Dominion Square - Com Cnt",
-  "site": null,
-  "state": "VA"
+  "loc": "Sterling, VA",
+  "zip": "20166"
  },
  {
-  "zip": "22042",
-  "city": "Falls Church",
-  "name": "General Dynamics",
-  "site": "28335d08a3",
-  "state": "VA"
+  "loc": "Sterling, VA",
+  "zip": "20166"
  },
  {
-  "zip": "22044",
-  "city": "Falls Church",
-  "name": "Patrick Henry",
-  "site": "50ed42143a",
-  "state": "VA"
+  "loc": "Suffolk, VA",
+  "zip": "23432"
  },
  {
-  "zip": "22046",
-  "city": "Falls Church",
-  "name": "Wonder-Falls Church - ACM",
-  "site": "46e9a9148a",
-  "state": "VA"
+  "loc": "Verona, VA",
+  "zip": null
  },
  {
-  "zip": "20155",
-  "city": "Gainesville",
-  "name": "GCDC Manassas Bldg 3",
-  "site": "f3f6fbc416",
-  "state": "VA"
+  "loc": "Virginia Beach, VA",
+  "zip": "23462"
  },
  {
-  "zip": "20155",
-  "city": "Greenville",
-  "name": "GCDC 1.4 ACM",
-  "site": "0abfd9928a",
-  "state": "VA"
+  "loc": "Virginia Beach, VA",
+  "zip": "23462"
  },
  {
-  "zip": "22044",
-  "city": "Hampton",
-  "name": "Mercedes-Benz Hampton ACM",
-  "site": "de5cebbf42",
-  "state": "VA"
+  "loc": "Woodbridge, VA",
+  "zip": "22192"
  },
  {
-  "zip": "20171",
-  "city": "Herndon",
-  "name": "TSA Freedom Center Lobby ACM",
-  "site": "b221b135b3",
-  "state": "VA"
+  "loc": "Woodford, VA",
+  "zip": "22580"
  },
  {
-  "zip": "22101",
-  "city": "Mclean",
-  "name": "Old Dominion (ACM ONLY)",
-  "site": "a0964c87aa",
-  "state": "VA"
- },
- {
-  "zip": "22101",
-  "city": "Mclean",
-  "name": "Old Dominion (Flashing Only)",
-  "site": "8e1686a98f",
-  "state": "VA"
- },
- {
-  "zip": "22101",
-  "city": "Mclean",
-  "name": "Old Dominion ATAS",
-  "site": "a0964c87aa",
-  "state": "VA"
- },
- {
-  "zip": null,
-  "city": "Newport News",
-  "name": "Southern Mazda ACM",
-  "site": "1a111143ae",
-  "state": "VA"
- },
- {
-  "zip": "20189",
-  "city": "Nokesville",
-  "name": "ATC Harpers Ferry",
-  "site": "8f959919ce",
-  "state": "VA"
- },
- {
-  "zip": "23510",
-  "city": "Norfolk",
-  "name": "Norfolk Casino Bending",
-  "site": "aa7021c38b",
-  "state": "VA"
- },
- {
-  "zip": null,
-  "city": "Norfolk",
-  "name": "Virginia Zoo \"Edventure Campus",
-  "site": "3ed2d2d26b",
-  "state": "VA"
- },
- {
-  "zip": "23704",
-  "city": "Portsmouth",
-  "name": "Portsmouth Housing Resource Center",
-  "site": "ac196e4275",
-  "state": "VA"
- },
- {
-  "zip": "22134",
-  "city": "Quantico",
-  "name": "Bruce Hall Renovations",
-  "site": "1d492d852e",
-  "state": "VA"
- },
- {
-  "zip": "20190",
-  "city": "Reston",
-  "name": "Reston Row RB5",
-  "site": "84a5aa4a24",
-  "state": "VA"
- },
- {
-  "zip": "23228",
-  "city": "Richmond",
-  "name": "3 Notch Aparments",
-  "site": "c3a7baecd2",
-  "state": "VA"
- },
- {
-  "zip": "23430",
-  "city": "Smithfield",
-  "name": "Riverside Bending",
-  "site": "ab53773af4",
-  "state": "VA"
- },
- {
-  "zip": "22153",
-  "city": "SpringField",
-  "name": "7900 Hooes Road",
-  "site": "22727e9ab0",
-  "state": "VA"
- },
- {
-  "zip": "22554",
-  "city": "Stafford",
-  "name": "Honda SO Residence",
-  "site": "2013807f0c",
-  "state": "VA"
- },
- {
-  "zip": "20116",
-  "city": "Sterling",
-  "name": "Nova Science Bending",
-  "site": "86f1523ee6",
-  "state": "VA"
- },
- {
-  "zip": "20166",
-  "city": "Sterling",
-  "name": "NOVA Science Center ACM",
-  "site": "ef99082f70",
-  "state": "VA"
- },
- {
-  "zip": "20166",
-  "city": "Sterling",
-  "name": "SDC TUNA-SEP NOVA Broadrum",
-  "site": "96bea458a8",
-  "state": "VA"
- },
- {
-  "zip": "20166",
-  "city": "Sterling",
-  "name": "Sentine Data Center ACM",
-  "site": "e048feb96e",
-  "state": "VA"
- },
- {
-  "zip": "20166",
-  "city": "Sterling",
-  "name": "Vantage Data Center",
-  "site": "baec089ad9",
-  "state": "VA"
- },
- {
-  "zip": "23432",
-  "city": "Suffolk",
-  "name": "Suffolk Central Library",
-  "site": "d881bfb906",
-  "state": "VA"
- },
- {
-  "zip": null,
-  "city": "Verona",
-  "name": "Daikin-Stauton Office Upgrade",
-  "site": null,
-  "state": "VA"
- },
- {
-  "zip": "23462",
-  "city": "Virginia Beach",
-  "name": "Diamond Springs Elementary School",
-  "site": "d3fb5ff5ad",
-  "state": "VA"
- },
- {
-  "zip": "23462",
-  "city": "Virginia Beach",
-  "name": "Newton Elementary School",
-  "site": "d6f5b06aa5",
-  "state": "VA"
- },
- {
-  "zip": null,
-  "city": "Virginia Beach",
-  "name": "Tidewater Community College",
-  "site": "8b5f1b558f",
-  "state": "VA"
- },
- {
-  "zip": "22192",
-  "city": "Woodbridge",
-  "name": "INOVA Woodbridge",
-  "site": "fa9e2145e2",
-  "state": "VA"
- },
- {
-  "zip": "22580",
-  "city": "Woodford",
-  "name": "Kalahari Bending",
-  "site": "bd8cbe976e",
-  "state": "VA"
- },
- {
-  "zip": "22580",
-  "city": "Woodford",
-  "name": "Kalahari Resort ACM",
-  "site": "2248b69ad6",
-  "state": "VA"
- },
- {
-  "zip": "22580",
-  "city": "Woodford",
-  "name": "Kalahari Resort ATAS",
-  "site": "2248b69ad6",
-  "state": "VA"
- },
- {
-  "zip": "05751",
-  "city": "Killington",
-  "name": "Great Eastern ACM Dry Joint",
-  "site": "22ab198b3d",
-  "state": "VT"
+  "loc": "Killington, VT",
+  "zip": "05751"
  }
 ]

@@ -35,6 +35,7 @@ jobs:
         if: github.event_name == 'repository_dispatch'
         env:
           JOBS: ${{ toJson(github.event.client_payload.jobs) }}
+          SHOW_JOB_NAMES: ${{ vars.SHOW_JOB_NAMES }}
         run: |
           python3 - <<'PY'
           import json, os, re
@@ -46,11 +47,11 @@ jobs:
               row = {k: (str(j[k])[:160] if j.get(k) is not None else None) for k in ("name", "city", "state", "zip", "site")}
               if row["name"] and row["city"] and row["state"] and re.fullmatch(r"[A-Z]{2}", row["state"]):
                   keep.append(row)
-          with open("data/jobs-map.json", "w", encoding="utf-8") as f:
-              json.dump(keep, f, indent=1, ensure_ascii=False)
-              f.write("\n")
-          print("jobs on the map:", len(keep))
+          json.dump(keep, open(os.path.join(os.environ["RUNNER_TEMP"], "jobs-raw.json"), "w"))
           PY
+          # Names go into the public repository only when the variable SHOW_JOB_NAMES is "true" (Mark, Nov 14: not yet).
+          if [ "$SHOW_JOB_NAMES" = "true" ]; then names="--names"; else names=""; fi
+          python3 tools/jobs_map.py "$RUNNER_TEMP/jobs-raw.json" $names
       - name: Install photo tools
         run: pip install --quiet opencv-python-headless numpy pillow pillow-heif
       - name: Import projects from CFS Core

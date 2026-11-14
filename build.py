@@ -323,55 +323,12 @@ STATE_ABBR = {n: c for c, n in [
     ("TN", "Tennessee"), ("TX", "Texas"), ("UT", "Utah"), ("VT", "Vermont"), ("VA", "Virginia"), ("WA", "Washington"),
     ("WV", "West Virginia"), ("WI", "Wisconsin"), ("WY", "Wyoming")]}
 
-# Jobs map (owner 174b/175a/176): every CFS Job by city with its name only, sent by the database to
-# data/jobs-map.json (workflow publish-content.yml). Spelling fixes for city names typed in CFS Jobs:
-CITY_ALIAS = {
-    "Alexanderia, VA": "Alexandria, VA", "Chattnoga, TN": "Chattanooga, TN", "Waltahm, MA": "Waltham, MA",
-    "Wasington, DC": "Washington, DC", "Southwest, DC": "Washington, DC", "Mclean, VA": "McLean, VA",
-    "SpringField, VA": "Springfield, VA", "Soddy-Daisy, TN": "Soddy Daisy, TN",
-    "Huntington, PA": "Huntingdon, PA", "Greenville, VA": "Gainesville, VA",  # by their ZIP codes (16652, 20155)
-}
-
-
-# Trailing scope words of Job names ("Wardman Park ACM", "GMU Bending", "Old Dominion (ACM ONLY)"): the public name
-# is the place, not the scope (owner 177).
-_SCOPE = re.compile(r"(?:[\s(\-/]+(?:acm(?: only)?|bending|nichiha|atas|fabrication|sub|panels?|flashings?|hpl|fc|"
-                    r"fiber cement|metal|metals)\)?)+\s*$", re.I)
-
-
-def _words(t):
-    return re.findall(r"[a-z0-9]+", t.lower())
-
-
-def place_name(names):
-    """One public name for one or more Jobs at the same address: the common start of their names, scope removed."""
-    cores = [_SCOPE.sub("", n).strip(" -") or n for n in names]
-    if len(cores) == 1:
-        return cores[0]
-    toks = [re.split(r"(\s+|-)", c) for c in cores]
-    words = [[w for w in t if w.strip() and w != "-"] for t in toks]
-    common = []
-    for parts in zip(*words):
-        if len({w.lower() for w in parts}) == 1:
-            common.append(parts[0])
-        else:
-            break
-    return " ".join(common) if common else min(cores, key=len)
-
-
+# Jobs map (owner 174-177): places made by tools/jobs_map.py from what the database sends (city, state, ZIP; the
+# name only when the GitHub variable SHOW_JOB_NAMES is true; Mark, Nov 14: no Job names for now).
 def jobs_map():
-    """Jobs from data/jobs-map.json grouped by address code ("site"), one entry per place and city."""
-    from collections import OrderedDict
     f = os.path.join(ROOT, "data/jobs-map.json")
-    groups = OrderedDict()
-    for j in (json.load(open(f, encoding="utf-8")) if os.path.exists(f) else []):
-        loc = f'{j["city"]}, {j["state"]}'
-        loc = CITY_ALIAS.get(loc, loc)
-        key = (loc, j.get("site") or "name:" + " ".join(_words(_SCOPE.sub("", j["name"]))))
-        g = groups.setdefault(key, {"names": [], "loc": loc, "zip": j.get("zip")})
-        g["names"].append(j["name"])
-        g["zip"] = g["zip"] or j.get("zip")
-    return [{"name": place_name(g["names"]), "loc": g["loc"], "zip": g["zip"]} for g in groups.values()]
+    return [{"loc": j["loc"], "zip": j.get("zip"), "name": j.get("name")}
+            for j in (json.load(open(f, encoding="utf-8")) if os.path.exists(f) else []) if j.get("loc")]
 
 
 JOBS = jobs_map()
@@ -388,15 +345,8 @@ def map_block():
     by = defaultdict(lambda: {"jobs": [], "projects": []})
     for p in P:
         by[p["loc"]]["projects"].append({"name": p["name"], "slug": p["slug"]})
-    def same_place(a, b):  # "Wardman Park" and "Wardman Park Redevelopment", "1200 Bladensburg" and "... Road"
-        wa, wb = _words(a), _words(b)
-        n = min(len(wa), len(wb))
-        return n > 0 and wa[:n] == wb[:n]
-    for j in JOBS:
-        v = by[j["loc"]]
-        if any(same_place(j["name"], q["name"]) for q in v["projects"]) or any(same_place(j["name"], x) for x in v["jobs"]):
-            continue
-        v["jobs"].append(j["name"])
+    for j in JOBS:  # already grouped and matched with the portfolio by tools/jobs_map.py
+        by[j["loc"]]["jobs"].append(j["name"])  # None when names are hidden
     count = lambda v: len(v["jobs"]) + len(v["projects"])
     total = sum(count(v) for v in by.values())
     states = {loc.split(", ")[-1] for loc in by}

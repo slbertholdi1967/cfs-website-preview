@@ -80,7 +80,10 @@ Every page is `noindex`, `robots.txt` blocks everything, the footer says "Previe
    address are one place (address code "site"), scope words removed ("Wardman Park ACM"+"Bending" = "Wardman Park"),
    and a Job matching a portfolio project in the same city is shown as that project. The database sends the list
    (repository_dispatch "jobs-map", key in Supabase Vault "website_github_token") when Jobs change, nightly too;
-   workflow writes data/jobs-map.json. City typos fixed in build.py CITY_ALIAS; dots placed by ZIP (data/cities.json).
+   workflow runs tools/jobs_map.py (grouping, typo fixes CITY_ALIAS) and writes data/jobs-map.json; dots placed by
+   ZIP (data/cities.json). **Mark (Nov 14): no Job names for now**: only city/state/ZIP are saved and the panel says
+   "N more projects". To show names later: GitHub > Settings > Secrets and variables > Actions > Variables >
+   SHOW_JOB_NAMES = true (next send from the database brings them). Names of an earlier version remain in git history.
 8. **At go-live** (owner, Nov 14): set `PREVIEW = False` in build.py, so the footer reads "Developed by Sergio
    Bertholdi" instead of "Preview of the new website - not public"; also remove noindex and open robots.txt.
 6. Owner may tick **Enforce HTTPS** in GitHub > Settings > Pages (certificate is issued).

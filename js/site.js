@@ -122,7 +122,9 @@ document.addEventListener('keydown', function (e) { var f = document.querySelect
     var v = data[loc]; if (!v) return;
     var n = v.jobs.length + v.projects.length, html = '<div class="mih"><b>' + esc(loc) + '</b><span>' + n + ' project' + (n > 1 ? 's' : '') + '</span><button type="button" class="mix" aria-label="Close">&times;</button></div><ul>';
     v.projects.forEach(function (p) { html += '<li><a href="projects/' + esc(p.slug) + '.html">' + esc(p.name) + ' <span class="pill">Photos</span></a></li>'; });
-    v.jobs.forEach(function (j) { html += '<li>' + esc(j) + '</li>'; });
+    var hidden = 0;
+    v.jobs.forEach(function (j) { if (j) html += '<li>' + esc(j) + '</li>'; else hidden++; });
+    if (hidden) html += '<li class="more">' + (v.projects.length ? 'and ' : '') + hidden + (v.projects.length ? ' more' : '') + ' project' + (hidden > 1 ? 's' : '') + ' in ' + esc(loc.split(',')[0]) + '</li>';
     html += '</ul>';
     if (v.projects.length) html += '<button type="button" class="btn btn-blue mif">Show the ' + (v.projects.length > 1 ? v.projects.length + ' projects' : 'project') + ' with photos below</button>';
     info.innerHTML = html; info.hidden = false;
