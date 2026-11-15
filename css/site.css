@@ -401,3 +401,8 @@ footer .social{display:inline-flex;align-items:center;gap:8px;margin-top:14px}
 .tway h4{font-size:16px;margin-bottom:4px}.tway p{color:#cfd6de;font-size:14px;line-height:1.5}
 @media (max-width:700px){.tways{grid-template-columns:1fr}}
 button.btn{font:inherit;font-weight:600;font-size:16px;cursor:pointer;border:0}button.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff}
+/* phone and email icons in the menu (owner, Nov 15) */
+nav.top .icn{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(7,9,12,.55);backdrop-filter:blur(8px);border:1px solid var(--line);color:var(--blue2);transition:background .2s,color .2s}
+nav.top .icn:hover{background:var(--blue);color:#fff}
+nav.top .icn svg{width:17px;height:17px}
+@media (max-width:900px){nav.top .icn{width:44px;height:44px;border-radius:12px}}

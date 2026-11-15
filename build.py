@@ -60,7 +60,7 @@ def page(path, title, body, desc="", active=""):
 <nav class="top"><div class="wrap">
   <a href="{r}index.html"><img src="{r}img/site/logo-light.png" alt="CFS Designs US"></a>
   <ul>{nav}</ul>
-  <div class="right"><a class="track" href="{r}tracking.html"><b></b>Track a delivery</a><a class="btn btn-blue" href="{r}contact.html">Request a quote</a>
+  <div class="right"><a class="icn" href="tel:+15404248623" aria-label="Call us: (540) 424-8623" title="Call (540) 424-8623"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></a><a class="icn" href="mailto:info@cfsdesignsus.com" aria-label="Email us: info@cfsdesignsus.com" title="info@cfsdesignsus.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2zm8 7 8-5H4zm0 2L4 8v10h16V8z"/></svg></a><a class="track" href="{r}tracking.html"><b></b>Track a delivery</a><a class="btn btn-blue" href="{r}contact.html">Request a quote</a>
   <button class="burger" aria-label="Menu" onclick="document.body.classList.toggle('menu')"><i></i><i></i></button></div>
 </div></nav>
 <div class="mnav">{nav}<a class="btn btn-blue" href="{r}contact.html">Request a quote</a></div>

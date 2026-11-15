@@ -6,7 +6,7 @@ Read this first in a new session. The owner's working style and golden rules are
 ## How to work with the owner (Sergio Bertholdi)
 
 - Chat in **Portuguese**; everything on the site is in **English**.
-- **Numbered questions with lettered options** (last number used: **186**; continue from 187). Answers come as "157=a".
+- **Numbered questions with lettered options** (last number used: **187**; continue from 188). Answers come as "157=a".
 - **One step at a time**, preview before building, **never invent facts** (no fake testimonials, cities, materials,
   systems or AI-made photos presented as CFS work). Be economical; warn before running several agents.
 - Commit and push after each change; the site redeploys by itself in about 1 minute.
@@ -94,6 +94,7 @@ Every page is `noindex`, `robots.txt` blocks everything, the footer says "Previe
 12. **Second competitor review (Nov 14):** asked Mark (owner's email) for testimonials (183), a case-study project
    (184), whether CFS offers FR core / single panel replacement / rush fabrication / AIA course (185), MCA MCM
    Certified Fabricator and ARCAT/SpecLink listing (186). Update the site when he answers. 182=b: 4 photo downloads.
+13. **Header contact (187a):** phone and email as two round icons in the menu on every page (tel: / mailto:).
 8. **At go-live, only after board approval** (owner, Nov 14): host on Cloudflare Pages (free) connected to this repo,
    point www.cfsdesignsus.com to it (Squarespace Domains), set `PREVIEW = False` in build.py, so the footer reads "Developed by Sergio
    Bertholdi" instead of "Preview of the new website - not public"; also remove noindex and open robots.txt.
